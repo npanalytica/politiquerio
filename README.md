@@ -1,4 +1,9 @@
-![alt text](http://prognoid.com/static/img/politiquerio.png "Logo Title Text 1")
+<p align="center">
+  <br/>
+  <img src="http://prognoid.com/static/img/politiquerio.png">
+  <br/>
+</p>
+
 
 # ¿Qué es politiquer.io?
 
