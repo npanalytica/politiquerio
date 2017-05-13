@@ -1,0 +1,19 @@
+{
+  "name": "politiquerio",
+  "version": "0.0.1",
+  "description": "repositorio de datos",
+  "main": "server/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "~4.14.0",
+    "express-query-boolean": "^1.0.0",
+    "mysql": "~2.11.1",
+    "q": "^1.4.1",
+    "underscore": "^1.8.3"
+  }
+}
