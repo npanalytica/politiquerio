@@ -1,6 +1,12 @@
 const DB = require('./../dbhelpers');
 const Q = require('q');
 
+function getCuentas(con, query) {
+	let sql = "SELECT datos, datasets, estadisticas FROM cuentas_view";
+	return DB.execute(con, sql, [], 'get_one');
+}
+module.exports.getCuentas = getCuentas;
+
 function getGrupos(con, query) {
 	let sql = "SELECT id, nombre FROM grupos";
 	if(query.id) sql += " WHERE id = ?";

@@ -1,0 +1,10 @@
+@import "colors";
+
+.link {
+	color: $color-hard;
+	text-decoration: underline;
+}
+
+.link:hover {
+	color: $color-primary;
+}

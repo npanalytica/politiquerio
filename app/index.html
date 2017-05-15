@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<title> Prognoid.com </title>
+		<meta name="description" content="Politiquerio te permite explorar todos
+		los datos públicos de México"/>
+		<meta name="keywords" content="datos estadística INEGI México
+		estadísticas números indicadores tasa asesinatos gdp pobreza índices"/>
+		<!-- Underscore -->
+		<script src="/node/underscore/underscore-min.js"></script>
+		<!-- Ionicons -->
+		<link href="/bower/Ionicons/css/ionicons.min.css" rel="stylesheet" media="all"></link>
+		<!-- Angular -->
+		<script src="/bower/angular/angular.min.js"></script>
+		<script src="/bower/angular-route/angular-route.min.js"></script>
+		<!-- Skeleton -->
+		<link rel="stylesheet" media="all" href="/bower/skeleton/css/normalize.css">
+		<link rel="stylesheet" media="all" href="/bower/skeleton/css/skeleton.css">
+		<!-- Dev -->
+		<script src="app.js"></script>
+		<script src="config.js"></script>
+		<script src="routes.js"></script>
+		<!-- Services -->
+		<script src="services/Rest.js"></script>
+		<!-- Components -->
+		<script src="components/site_footer/controller.js"></script>
+		<script src="components/top_nav/controller.js"></script>
+		<!-- Controllers -->
+		<script src="modules/landing/controller.js"></script>
+		<script src="api/v1/controller.js"></script>
+		<link rel="stylesheet" media="all" href="static/style/style.css"/>
+	</head>
+	<body ng-app="app">
+		<div ng-view></div>
+	</body>
+</html>

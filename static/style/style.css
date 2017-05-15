@@ -1,0 +1,99 @@
+#navbar {
+  margin-top: 60px; }
+
+#logo {
+  height: 35px; }
+
+#navbar-items {
+  float: right; }
+
+#navbar-items > a {
+  font-size: 13pt;
+  color: #383c44;
+  margin-left: 10px;
+  text-decoration: none; }
+
+#navbar-items > a:hover {
+  color: #4679B2; }
+
+#mid-banner {
+  margin-top: 20px;
+  background-color: #4679B2;
+  color: #fff;
+  padding: 30px;
+  width: 100%;
+  box-sizing: border-box; }
+
+#mid-banner-title {
+  display: block;
+  text-align: center;
+  font-size: 22pt; }
+
+#mid-banner-desc {
+  font-size: 14pt; }
+
+#mid-banner-desc > a {
+  color: #fff;
+  text-decoration: underline; }
+
+#cuenta {
+  background-color: #e1e1e1;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box; }
+
+#landing-explore {
+  margin-top: 30px;
+  font-size: 13pt; }
+
+#landing-explore-input {
+  width: 100%;
+  margin-top: 20px; }
+
+#bottom {
+  background-color: #383c44;
+  border-top: 1px solid #e1e1e1;
+  margin-top: 10px;
+  padding: 20px;
+  bottom: 0;
+  font-size: 12pt;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  box-sizing: border-box; }
+
+#bottom-logo {
+  height: 30px; }
+
+.bottom-link {
+  color: #e1e1e1; }
+
+.bottom-link:hover {
+  color: #4679B2; }
+
+.center {
+  text-align: center; }
+
+.link {
+  color: #383c44;
+  text-decoration: underline; }
+
+.link:hover {
+  color: #4679B2; }
+
+@font-face {
+  font-family: 'Oxygen';
+  src: url("/static/fonts/Oxygen-Regular.ttf"); }
+body {
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Oxygen'; }
+
+a {
+  text-decoration: none;
+  color: #4679B2; }
+
+a:hover {
+  color: #d1495b; }
+
+/*# sourceMappingURL=style.css.map */

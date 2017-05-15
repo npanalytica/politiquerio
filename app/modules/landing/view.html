@@ -1,0 +1,44 @@
+
+<top-nav></top-nav>
+
+<div id="mid-banner">
+	<div class="container">
+		<span id="mid-banner-title">El hogar de los datos públicos de México</span>
+		<span id="mid-banner-desc">Aquí encontrarás recursos y
+			herramientas para analizar los datos públicos del país, encontrar
+			patrones, generar visualizaciones, <a href="/#/docs">y más</a>.
+		</span>
+	</div>
+</div>
+
+<div id="cuenta">
+	<div class="container">
+		<div class="row center">
+			<div class="one-third column">
+				<span class="cuenta-numero" ng-bind="vm.cuentas.estadisticas.toLocaleString()"></span>
+				<span class="cuenta-desc">estadísticas</span>
+			</div>
+			<div class="one-third column">
+				<span class="cuenta-numero" ng-bind="vm.cuentas.datasets.toLocaleString()"></span>
+				<span class="cuenta-desc">datasets</span>
+			</div>
+			<div class="one-third column">
+				<span class="cuenta-numero" ng-bind="vm.cuentas.datos.toLocaleString()"></span>
+				<span class="cuenta-desc">datos</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="landing-explore" class="container">
+	<div class="center">
+		Comienza a explorar
+		<a href="/#/explorador/">
+			<span ng-bind="vm.cuentas.datasets.toLocaleString()"></span> datasets
+		</a>
+	</div>
+	<input id="landing-explore-input" ng-model="vm.search" ng-keyup="vm.updateSearch()"
+		type="text" placeholder="Homicidios en Nuevo León..."/>
+</div>
+
+<site-footer></site-footer>

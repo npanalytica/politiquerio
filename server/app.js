@@ -13,7 +13,10 @@ let connection = require('./database');
 connection.init();
 
 // Static routes
-app.use('/', express.static(__dirname + '/app/'));
+app.use('/', express.static(__dirname + './../app/'));
+app.use('/static', express.static(__dirname + './../static/'));
+app.use('/node', express.static(__dirname + './../node_modules/'));
+app.use('/bower', express.static(__dirname + './../bower_components/'));
 
 require('./routes/apiv1/_routes').configure(app);
 

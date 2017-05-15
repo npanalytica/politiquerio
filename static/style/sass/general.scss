@@ -1,0 +1,25 @@
+@import "colors";
+
+@import "nav";
+@import "positioning";
+@import "typography";
+
+@font-face {
+  font-family: 'Oxygen';
+  src: url('/static/fonts/Oxygen-Regular.ttf');
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+	font-family: 'Oxygen';
+}
+
+a {
+	text-decoration: none;
+	color: $color-primary;
+}
+
+a:hover {
+	color: $color-secondary;
+}

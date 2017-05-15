@@ -1,21 +1,24 @@
 {
-	"name": "politiquerio",
-	"description": "repositorio de datos",
-	"main": "server/app.js",
-	"authors": [
-		"NP Analytica"
-	],
-	"license": "ISC",
-	"homepage": "",
-	"private": true,
-	"dependencies": {
-
-	},
-	"ignore": [
-		"**/.*",
-		"node_modules",
-		"bower_components",
-		"test",
-		"tests"
-	]
+  "name": "politiquerio",
+  "description": "repositorio de datos",
+  "main": "server/app.js",
+  "authors": [
+    "NPAnalytica"
+  ],
+  "license": "Apache 2",
+  "homepage": "https://github.com/npanalytica/politiquerio",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "skeleton": "^2.0.4",
+    "angular": "^1.6.4",
+    "angular-route": "^1.6.4",
+    "Ionicons": "ionicons#^2.0.1"
+  }
 }

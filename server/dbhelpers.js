@@ -2,12 +2,14 @@ const _ = require('underscore');
 const Q = require('q');
 const connection = require('./database');
 
-function execute(con, sql, params) {
+function execute(con, sql, params, type) {
 	let d = Q.defer();
 	con.query(sql, params, function(err, data) {
 		if(err) {
 			d.reject(err);
 		} else {
+			if(type == 'get_one')
+				data = data.length == 1 ? data[0] : null;
 			d.resolve(data);
 		}
 	})

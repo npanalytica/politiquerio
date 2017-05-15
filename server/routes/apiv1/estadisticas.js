@@ -4,6 +4,10 @@ const Estadisticas = require('./../../model/Estadisticas');
 module.exports = {
 	configure: function(app) {
 
+		app.get("/apiv1/cuentas/", function(req, res) {
+			DB.respond(res, Estadisticas.getCuentas);
+		})
+
 		app.get("/apiv1/grupos/:id?", function(req, res) {
 			if(req.params.id) req.query.id = req.params.id;
 			DB.respond(res, Estadisticas.getGrupos, [req.query]);
