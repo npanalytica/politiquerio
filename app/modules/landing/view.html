@@ -4,9 +4,9 @@
 <div id="mid-banner">
 	<div class="container">
 		<span id="mid-banner-title">El hogar de los datos públicos de México</span>
-		<span id="mid-banner-desc">Aquí encontrarás recursos y
-			herramientas para analizar los datos públicos del país, encontrar
-			patrones, generar visualizaciones, <a href="/#/docs">y más</a>.
+		<span id="mid-banner-desc">Aquí encontrarás recursos para analizar los
+			datos públicos del país, encontrar patrones, generar visualizaciones,
+			<a href="/#/docs">y más</a>.
 		</span>
 	</div>
 </div>
@@ -37,8 +37,5 @@
 			<span ng-bind="vm.cuentas.datasets.toLocaleString()"></span> datasets
 		</a>
 	</div>
-	<input id="landing-explore-input" ng-model="vm.search" ng-keyup="vm.updateSearch()"
-		type="text" placeholder="Homicidios en Nuevo León..."/>
+	<search-bar></search-bar>
 </div>
-
-<site-footer></site-footer>

@@ -1,5 +1,13 @@
 @import "colors";
 
+.font-secondary {
+	color: $color-secondary;
+}
+
+.font-soft {
+	color: $color-soft;
+}
+
 .link {
 	color: $color-hard;
 	text-decoration: underline;

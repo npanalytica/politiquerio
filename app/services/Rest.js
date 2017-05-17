@@ -32,8 +32,10 @@ function($q, $http, config) {
 			return this;
 		},
 		load: function(callback) {
+			var self = this;
 			var promises = makePromises(this.requests);
 			$q.all(promises).then(function(result) {
+				self.requests = [];
 				callback(null, _.pluck(result, 'data'));
 			}, function(error) {
 				callback(error.status, null);

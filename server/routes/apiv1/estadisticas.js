@@ -1,3 +1,4 @@
+const cache = require('./../../cache');
 const DB = require('./../../dbhelpers');
 const Estadisticas = require('./../../model/Estadisticas');
 
@@ -5,7 +6,7 @@ module.exports = {
 	configure: function(app) {
 
 		app.get("/apiv1/cuentas/", function(req, res) {
-			DB.respond(res, Estadisticas.getCuentas);
+			res.send(cache.data.cuentas);
 		})
 
 		app.get("/apiv1/grupos/:id?", function(req, res) {

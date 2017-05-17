@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
+<html style="height:100%;">
 	<head>
 		<title> Prognoid.com </title>
 		<meta name="description" content="Politiquerio te permite explorar todos
@@ -8,6 +8,8 @@
 		estadísticas números indicadores tasa asesinatos gdp pobreza índices"/>
 		<!-- Underscore -->
 		<script src="/node/underscore/underscore-min.js"></script>
+		<!-- Chartjs -->
+		<script src="/bower/chart.js/dist/Chart.min.js"></script>
 		<!-- Ionicons -->
 		<link href="/bower/Ionicons/css/ionicons.min.css" rel="stylesheet" media="all"></link>
 		<!-- Angular -->
@@ -22,15 +24,20 @@
 		<script src="routes.js"></script>
 		<!-- Services -->
 		<script src="services/Rest.js"></script>
+		<!-- Shared -->
+		<script src="shared/httpLoader/controller.js"></script>
 		<!-- Components -->
-		<script src="components/site_footer/controller.js"></script>
-		<script src="components/top_nav/controller.js"></script>
+		<script src="components/site_footer/directive.js"></script>
+		<script src="components/top_nav/directive.js"></script>
+		<script src="components/search_bar/controller.js"></script>
+		<script src="components/search_bar/directive.js"></script>
 		<!-- Controllers -->
 		<script src="modules/landing/controller.js"></script>
 		<script src="api/v1/controller.js"></script>
 		<link rel="stylesheet" media="all" href="static/style/style.css"/>
 	</head>
 	<body ng-app="app">
-		<div ng-view></div>
+		<div id="ng-view" ng-view></div>
+		<site-footer></site-footer>
 	</body>
 </html>

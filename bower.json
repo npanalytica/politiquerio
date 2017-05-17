@@ -19,6 +19,7 @@
     "skeleton": "^2.0.4",
     "angular": "^1.6.4",
     "angular-route": "^1.6.4",
-    "Ionicons": "ionicons#^2.0.1"
+    "Ionicons": "ionicons#^2.0.1",
+    "chart.js": "^2.5.0"
   }
 }

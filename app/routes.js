@@ -2,6 +2,8 @@ angular.module('app').config(['$routeProvider', '$locationProvider',
 	function($routeProvider, $locationProvider) {
 	$locationProvider.hashPrefix('');
 	$routeProvider.when('/', {
+		templateUrl: '/modules/temporary_splash/view.html',
+	}).when('/landing/', {
 		templateUrl: '/modules/landing/view.html',
 		controller: 'LandingController',
 		controllerAs: 'vm'

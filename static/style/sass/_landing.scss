@@ -1,0 +1,44 @@
+@import "colors";
+
+#mid-banner {
+	margin-top: 20px;
+	background-color: $color-primary;
+	color: #fff;
+	padding: 30px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+#mid-banner-title {
+	display: block;
+	text-align: center;
+	font-size: 24pt;
+}
+
+#mid-banner-desc {
+	display: block;
+	margin-top: 10px;
+	font-size: 12pt;
+}
+
+#mid-banner-desc > a {
+	color: #fff;
+	text-decoration: underline;
+}
+
+#cuenta {
+	background-color: $color-superlight;
+	padding: 10px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+#landing-explore {
+	margin-top: 30px;
+	font-size: 13pt;
+}
+
+#landing-explore-input {
+	width: 100%;
+	margin-top: 20px;
+}

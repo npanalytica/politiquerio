@@ -1,19 +1,31 @@
-#navbar {
-  margin-top: 60px; }
+#footer {
+  background-color: #383c44;
+  color: #fff;
+  border-top: 1px solid #e1e1e1;
+  margin-top: 10px;
+  padding: 10px;
+  bottom: 0;
+  font-size: 12pt;
+  width: 100%;
+  height: 60px;
+  box-sizing: border-box; }
 
-#logo {
-  height: 35px; }
+#footer-logo {
+  display: block;
+  float: left;
+  margin-top: 5px;
+  margin-right: 10px;
+  height: 17px; }
 
-#navbar-items {
-  float: right; }
+.footer-link {
+  color: #e1e1e1;
+  padding-right: 10px;
+  padding-left: 10px; }
 
-#navbar-items > a {
-  font-size: 13pt;
-  color: #383c44;
-  margin-left: 10px;
-  text-decoration: none; }
+.footer-link > i {
+  margin-right: 2px; }
 
-#navbar-items > a:hover {
+.footer-link:hover {
   color: #4679B2; }
 
 #mid-banner {
@@ -27,10 +39,12 @@
 #mid-banner-title {
   display: block;
   text-align: center;
-  font-size: 22pt; }
+  font-size: 24pt; }
 
 #mid-banner-desc {
-  font-size: 14pt; }
+  display: block;
+  margin-top: 10px;
+  font-size: 12pt; }
 
 #mid-banner-desc > a {
   color: #fff;
@@ -50,29 +64,47 @@
   width: 100%;
   margin-top: 20px; }
 
-#bottom {
-  background-color: #383c44;
-  border-top: 1px solid #e1e1e1;
-  margin-top: 10px;
-  padding: 20px;
-  bottom: 0;
-  font-size: 12pt;
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
-  box-sizing: border-box; }
-
-#bottom-logo {
-  height: 30px; }
-
-.bottom-link {
-  color: #e1e1e1; }
-
-.bottom-link:hover {
-  color: #4679B2; }
-
 .center {
   text-align: center; }
+
+.search-result-header {
+  margin-top: 10px;
+  margin-bottom: 20px; }
+
+.search-other-headers {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 11pt; }
+
+.search-other-results {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  font-size: 10pt; }
+
+#navbar {
+  box-sizing: border-box;
+  padding-top: 60px; }
+
+#navbar-logo {
+  height: 30px; }
+
+#navbar-items {
+  float: right; }
+
+#navbar-items > a {
+  font-size: 13pt;
+  color: #383c44;
+  margin-left: 10px;
+  text-decoration: none; }
+
+#navbar-items > a:hover {
+  color: #4679B2; }
+
+.font-secondary {
+  color: #d1495b; }
+
+.font-soft {
+  color: #777; }
 
 .link {
   color: #383c44;
@@ -84,10 +116,18 @@
 @font-face {
   font-family: 'Oxygen';
   src: url("/static/fonts/Oxygen-Regular.ttf"); }
+html {
+  height: 100%;
+  margin: 0; }
+
 body {
+  height: 100%;
   margin: 0px;
   padding: 0px;
   font-family: 'Oxygen'; }
+
+#ng-view {
+  min-height: 100%; }
 
 a {
   text-decoration: none;

@@ -12,6 +12,9 @@ app.use(boolParser());
 let connection = require('./database');
 connection.init();
 
+let cache = require('./cache');
+cache.init();
+
 // Static routes
 app.use('/', express.static(__dirname + './../app/'));
 app.use('/static', express.static(__dirname + './../static/'));

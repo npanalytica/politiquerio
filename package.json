@@ -13,6 +13,7 @@
     "express": "~4.14.0",
     "express-query-boolean": "^1.0.0",
     "mysql": "~2.11.1",
+    "natural": "^0.5.1",
     "q": "^1.4.1",
     "skeleton": "^0.1.2",
     "underscore": "^1.8.3"

@@ -1,0 +1,26 @@
+@import "colors";
+
+#navbar {
+	box-sizing: border-box;
+	padding-top: 60px;
+}
+
+#navbar-logo {
+	height: 30px;
+}
+
+#navbar-items {
+	float: right;
+
+}
+
+#navbar-items > a {
+	font-size: 13pt;
+	color: $color-hard;
+	margin-left: 10px;
+	text-decoration: none;
+}
+
+#navbar-items > a:hover {
+	color: $color-primary;
+}

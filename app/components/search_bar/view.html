@@ -1,0 +1,52 @@
+<input id="landing-explore-input" ng-model="vm.search.text"
+	ng-keydown="vm.updateSearch($event)"
+	type="text" placeholder="Suicidios en Guadalajara, Jalisco..."/>
+
+<http-loader http-status="vm.search.status"></http-loader>
+
+<div ng-if="vm.search.result && vm.search.status == 0">
+
+	<div class="row center search-result-header">
+		<span ng-bind="vm.search.result.nombre"></span>
+		<i class="ion-arrow-right-c"></i>
+		<span ng-bind="vm.estadistica.estadistica.nombre"></span>:
+		<span ng-bind="vm.estadistica.$$latest.valor"></span><br/>
+		<span ng-bind="vm.estadistica.$$latest.nombre" class="font-soft"></span>
+		<span ng-bind="vm.estadistica.$$latest.fecha.substring(0, 4)" class="font-soft"></span>
+	</div>
+
+
+	<div class="row">
+		<div style="width:960px; height:400px;">
+			<canvas id="myChart" width="960" height="400"></canvas>
+		</div>
+		<!--<div class="four columns">
+			<span class="search-other-headers">
+				Datasets relacionados
+				<i class="ion-arrow-down-b"></i>
+			</span>
+			<a
+				class="search-other-results"
+				ng-repeat="estadistica in vm.search.result.estadisticas"
+				ng-if="estadistica != vm.estadistica"
+				href="" ng-click="vm.setEstadistica(estadistica)">
+				<i class="ion-document"></i>
+				<span ng-bind="estadistica.estadistica.nombre"></span>
+			</a>
+		</div>-->
+	</div>
+
+	<div class="row search-other-results">
+		Otros datasets:
+		<span
+		ng-repeat="estadistica in vm.search.result.estadisticas"
+		ng-if="estadistica != vm.estadistica">
+			<a
+				href="" ng-click="vm.setEstadistica(estadistica)">
+				<span ng-bind="estadistica.estadistica.nombre">
+				</span><span ng-if="!$last">,</span>
+			</a>
+		</span>
+	</div>
+
+</div>

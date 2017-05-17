@@ -1,0 +1,30 @@
+<!-- Error -->
+<div
+	ng-if="httpStatus == 1"
+	style="
+		z-index: 1001;
+		position:relative;
+		text-align: center;
+		vertical-align: center;
+		width: 100%;
+		height: 100%;
+		background-color: #fff;">
+		<img style="height:300px;" class="margin-top-lg"
+			src="/static/images/error.png"/>
+		<div style="max-width:400px; margin-left:auto; margin-right: auto" class="font-soft font-lg">
+			<span ng-bind="errorMessage || '¡Ocurrió un error! Por favor inténtalo más tarde'"></span>
+		</div>
+</div>
+<!-- Loading -->
+<div
+	ng-if="httpStatus == 2"
+	style="
+		z-index: 1001;
+		position:relative;
+		text-align: center;
+		vertical-align: center;
+		width: 100%;
+		background-color: #fff;">
+		<img style="margin-top: {{margin}}px; height:200px;"
+			src="/static/images/gears.gif"/>
+</div>

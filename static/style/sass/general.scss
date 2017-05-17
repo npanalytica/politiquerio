@@ -1,7 +1,10 @@
 @import "colors";
 
-@import "nav";
+@import "footer";
+@import "landing";
 @import "positioning";
+@import "search_bar";
+@import "top_nav";
 @import "typography";
 
 @font-face {
@@ -9,10 +12,20 @@
   src: url('/static/fonts/Oxygen-Regular.ttf');
 }
 
+html {
+	height: 100%;
+	margin: 0;
+}
+
 body {
+	height: 100%;
 	margin: 0px;
 	padding: 0px;
 	font-family: 'Oxygen';
+}
+
+#ng-view {
+	min-height:100%;
 }
 
 a {
