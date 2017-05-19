@@ -1,0 +1,38 @@
+[
+	{
+		"name": "Estados",
+		"description": "Los estados de la república (¡treinta y un estados, y un distrito federal!)",
+		"requests": [
+			{
+				"method": "GET",
+				"url": "estados/",
+				"description": "Regresa los estados de México",
+				"parameters": []
+			},
+			{
+				"method": "GET",
+				"url": "estados/:id/",
+				"description": "Regresa el estado con @id=:id",
+				"parameters": [
+					{
+						"r": ":id",
+						"type": "int",
+						"description": "El id del estado"
+					}
+				]
+			},
+			{
+				"method": "GET",
+				"url": "estados/:id/municipios/",
+				"description": "Regresa los municipios del estado con @id=:id",
+				"parameters": [
+					{
+						"r": ":id",
+						"type": "int",
+						"description": "El id del estado"
+					}
+				]
+			}
+		]
+	}
+]

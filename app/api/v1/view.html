@@ -1,2 +1,61 @@
-<h1>MI API</h1>
-<button class="button-primary">Button element</button>
+<top-nav></top-nav>
+
+<div id="mid-banner">
+	<div class="container">
+		<span id="mid-banner-title">API versión 1.0</span>
+		<span id="mid-banner-desc">Esta es la descripción del API 1.0 de
+			politiquer.io. Te recordamos que <b>TODOS</b> nuestros datos
+			pertenecen al dominio público.
+		</span>
+	</div>
+</div>
+
+<div class="container">
+
+	<div class="row">
+
+		<div id="api-menu" class="three columns">
+			<a href="">General</a>
+			<a href="">Grupos</a>
+		</div>
+
+		<div id="api-content" class="nine columns">
+			<div class="api-section" ng-repeat="entry in vm.api">
+				<span class="api-title" ng-bind="entry.name"></span>
+				<span class="api-desc" ng-bind="entry.description"></span>
+
+				<span class="api-requests">HTTP requests</span>
+
+				<div class="api-request" ng-repeat="req in entry.requests">
+					<div class="api-code">
+						<span class="api-code-method" ng-bind="req.method"></span>
+						<span class="api-code-text" ng-bind="vm.base + req.url"></span>
+					</div>
+					<span class="api-request-description" ng-bind="req.description"></span>
+					<div class="api-request-params" ng-if="req.parameters.length > 0">
+						<div class="api-request-param" ng-repeat="param in req.parameters">
+							<span>ok</span>
+						</div>
+					</div>
+					<span class="api-request-no-params" ng-if="req.parameters.length == 0">
+						Este request no acepta parámetros
+					</span>
+					<button ng-click="vm.runRequest(req)">
+						RUN REQUEST
+					</button>
+
+					<div class="api-result">
+						<span ng-bind="req.$$result"></span>
+					</div>
+
+				</div>
+
+
+
+
+			</div>
+		</div>
+
+	</div>
+
+</div>

@@ -3,7 +3,9 @@ const natural = require('natural');
 const tokenizer = new natural.TreebankWordTokenizer();
 
 /**
- * @desc: regresa el objeto más parecido a @words
+ * @desc: regresa todos los objetos de @array[@prop] que aparecen en @words
+ * y cuya distancia JaroWinkler es menor que @cutoff
+ * @param {int} cuttoff - El score mínimo que tiene que tener un match
  * @param {str} words - El arreglo de palabras a comparar
  * @param {arr} array - Arreglo que contiene los objetos a comparar
  * @param {prop} prop - La propiedad dentro de cada elemento de @array que
@@ -11,20 +13,16 @@ const tokenizer = new natural.TreebankWordTokenizer();
  * NOTE: Útil para encontrar matches de palabra vs frase. (e.g, "Guadalajara" vs
  * "homicidios en Guadalajara, Jalisco")
 */
-function getMatch(words, array, prop) {
+function getMatchArray(cutoff, words, array, prop) {
 	prop = prop || 'nombre';
-	let guess = {obj: null, score: 0};
+	let matches = [];
 	for(let i = 0; i < array.length; i++) {
-		let new_score = getMaxScore(words, array[i][prop]);
-		if(new_score > guess.score) {
-			guess.score = new_score;
-			guess.obj = array[i];
-		}
+		let score = getMaxScore(words, array[i][prop]);
+		if(score > cutoff) matches.push(array[i]);
 	}
-	return guess;
+	return matches;
 }
-module.exports.getMatch = getMatch;
-
+module.exports.getMatchArray = getMatchArray;
 
 /**
  * @desc: regresa un arreglo sorteado de los objetos más parecidos a @words

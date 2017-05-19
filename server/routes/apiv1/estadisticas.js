@@ -1,71 +1,41 @@
-const cache = require('./../../cache');
+const _ = require('underscore');
 const DB = require('./../../dbhelpers');
-const Estadisticas = require('./../../model/Estadisticas');
+const Estadisticas = require('./../../model/v1/estadisticas');
+const Fuentes = require('./../../model/v1/fuentes');
 
 module.exports = {
 	configure: function(app) {
 
-		app.get("/apiv1/cuentas/", function(req, res) {
-			res.send(cache.data.cuentas);
-		})
-
-		app.get("/apiv1/grupos/:id?", function(req, res) {
-			if(req.params.id) req.query.id = req.params.id;
-			DB.respond(res, Estadisticas.getGrupos, [req.query]);
+		/** @desc - regresa los datasets atados a la estadistica **/
+		app.get("/apiv1/estadisticas/:id?", function(req, res) {
+			req.query = req.query || {};
+			DB.respond(res, Estadisticas.get, [req.params.id, req.query]);
 		});
 
-		app.get("/apiv1/grupos/:id/subgrupos", function(req, res) {
-			req.query.grupo_id = req.params.id;
-			DB.respond(res, Estadisticas.getSubgrupos, [req.query]);
+		/** @desc - regresa los datasets atados a la estadistica **/
+		app.get("/apiv1/estadisticas/:id/datasets/", function(req, res) {
+			if(isNaN(req.params.id)) res.sendStatus(901);
+			req.query = req.query || {};
+			DB.respond(res, Estadisticas.getDatasets, [req.params.id, req.query]);
 		});
 
-		app.get("/apiv1/subgrupos/:id", function(req, res) {
-			req.query.id = req.params.id;
-			DB.respond(res, Estadisticas.getSubgrupos, [req.query]);
+		/** @desc - regresa las fuentes que tienen datasets atadas a la estadistica **/
+		app.get("/apiv1/estadisticas/:id/fuentes/", function(req, res) {
+			if(isNaN(req.params.id)) res.sendStatus(901);
+			req.query = req.query || {};
+			DB.respond(res, Estadisticas.getFuentes, [req.params.id, req.query]);
 		});
 
-		app.get("/apiv1/subgrupos/:id/estadisticas", function(req, res) {
-			req.query.id = req.params.id;
-			DB.respond(res, Estadisticas.getEstadisticas, [req.query]);
+		/** @desc - regresa las fuentes que tienen datasets atadas a la estadistica **/
+		app.get("/apiv1/estadisticas/:id/fuentes/:fuente_id/historico/:type/",
+		function(req, res) {
+			if(isNaN(req.params.id)) res.sendStatus(901);
+			if(isNaN(req.params.fuente_id)) res.sendStatus(901);
+			if(!_.contains(['nacional', 'estatal', 'municipal'],
+				req.params.type)) res.sendStatus(404);
+			req.query = req.query || {};
+			DB.respond(res, Fuentes.getHistory, [req.params.type,
+				req.params.fuente_id, req.params.id, req.query]);
 		});
-
-		app.get("/apiv1/estadisticas/:id", function(req, res) {
-			req.query.id = req.params.id;
-			DB.respond(res, Estadisticas.getEstadisticas, [req.query]);
-		});
-
-		app.get("/apiv1/fuentes/:id", function(req, res) {
-			isNaN(req.params.id) ? res.status(901).send() :
-			DB.respond(res, Estadisticas.getFuenteById, [req.params.id]);
-		});
-
-		app.get("/apiv1/estadisticas/:id/fuentes", function(req, res) {
-			isNaN(req.params.id) ? res.status(901).send() :
-			DB.respond(res, Estadisticas.getFuentesByEstadistica,
-				[req.params.id]);
-		});
-
-		app.get("/apiv1/fuentes/:id/datos", function(req, res) {
-			isNaN(req.params.id) ? res.status(901).send() :
-			DB.respond(res, Estadisticas.getDatos, [req.params.id, req.query]);
-		});
-
-		app.get("/apiv1/fuentes/:id/datos/nacionales", function(req, res) {
-			isNaN(req.params.id) ? res.status(901).send() :
-			DB.respond(res, Estadisticas.getDatosNacionales, [req.params.id]);
-		});
-
-		app.get("/apiv1/fuentes/:id/datos/estatales", function(req, res) {
-			isNaN(req.params.id) ? res.status(901).send() :
-			DB.respond(res, Estadisticas.getDatosEstatales, [req.params.id,
-				req.query]);
-		});
-
-		app.get("/apiv1/fuentes/:id/datos/municipales", function(req, res) {
-			isNaN(req.params.id) ? res.status(901).send() :
-			DB.respond(res, Estadisticas.getDatosMunicipales, [req.params.id,
-				req.query]);
-		});
-
 	}
-}
+};

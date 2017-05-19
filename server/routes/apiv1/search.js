@@ -1,5 +1,5 @@
 const DB = require('./../../dbhelpers');
-const search = require('./../../scripts/search');
+const search = require('./../../scripts/search/_search');
 
 module.exports = {
 	configure: function(app) {

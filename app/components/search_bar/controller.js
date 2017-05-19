@@ -5,8 +5,8 @@
 **/
 
 angular.module('app').controller('SearchBarController', [
-'$timeout', 'Rest',
-function($timeout, Rest) {
+'$timeout', 'Search', 'ChartDatasetMaker',
+function($timeout, Search, ChartDatasetMaker) {
 	var self = this;
 
 	self.search = {
@@ -17,60 +17,41 @@ function($timeout, Rest) {
 
 	self.estadistica = null;
 
-	self.setEstadistica = function(estadistica) {
-		self.estadistica = estadistica;
-		$timeout(function() { draw(); });
-		if(estadistica.$$latest) return false;
-		estadistica.$$latest = _.max(estadistica.datos, function(dato) {
-			return parseInt(dato.fecha.substring(0, 4));
-		});
+	var datasets = [
+		{label: 'Jalisco', data: [1,2,3]},
+		{label: 'Veracruz', data: [4,2,1]},
+		{label: 'Nuevo León', data: [1,5,3]},
+		{label: 'Chihuahua', data: [4,2,1]},
+		{label: 'Tamaulipas', data: [1,1,3]},
+		{label: 'México', data: [6,3,1]}
+	]
+
+	self.setEstadistica = function(result) {
+		self.result = result;
+		draw(result);
 	}
 
 	self.updateSearch = function($e) {
 		if($e.keyCode != 13) return;
-		self.search.status = 2;
-		Rest.add('/apiv1/search/' + self.search.text).load(function(err, res) {
-			if(err) {
-				self.search.status = 1;
-			} else {
-				self.search.result = res[0];
-				for(var i = 0; i < res[0].estadisticas.length; i++) {
-					if(res[0].estadisticas[i].datos.length > 0) {
-						self.setEstadistica(res[0].estadisticas[i]);
-						break;
-					}
-				}
-				self.search.status = 0;
-			}
+		//self.search.status = 2;
+		Search.search(self.search.text, function(err, data) {
+			self.result = data[0];
+			self.results = data;
+			$timeout(function() { draw(data[0]); });
 		});
 	}
 
-	function draw() {
+	function draw(x) {
 		var ctx = document.getElementById("myChart");
-		var ordered = [];
-		var colors = [];
-		for(var i = 0; i < self.estadistica.datos.length; i++) {
-			ordered.push({
-				label: parseInt(self.estadistica.datos[i].fecha.substring(0, 4)),
-				valor: self.estadistica.datos[i].valor
-			});
-			colors.push('#4679b2');
-		}
-		ordered = _.sortBy(ordered, 'label');
 		var myChart = new Chart(ctx, {
 			type: 'line',
+
 			data: {
-				labels: _.pluck(ordered, 'label'),
-				datasets: [{
-					label: self.estadistica.estadistica.nombre,
-					data: _.pluck(ordered, 'valor'),
-					backgroundColor: '#d1495b',
-					pointBackgroundColor: '#fff',
-					pointBorderColor: '#B83042',
-            		borderWidth: 2
-        		}]
+				labels: x.labels,
+				datasets: x.datasets
     		},
     		options: {
+				legend: { position: 'bottom' },
         		scales: { yAxes: [{ticks: { beginAtZero:true }}]}
     		}
 		});

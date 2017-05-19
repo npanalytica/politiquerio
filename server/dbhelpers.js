@@ -17,13 +17,17 @@ function execute(con, sql, params, type) {
 }
 module.exports.execute = execute;
 
+module.exports.makeQMarks = function(arr) {
+	return Array.apply(null, Array(arr.length))
+		.map(String.prototype.valueOf, '?').join(',');
+}
+
 /**
  * @param {function} func - A function to execute within a transaction
  * @param {argv} args - Arguments to apply to the function
  *		@NOTE: @func always takes a transaction object as its first parameter
 */
-
-function respond(res, func, argv) {
+module.exports.respond = function(res, func, argv) {
 	connection.acquire(function(err, con) {
 		if(err) {
 			res.status(500).send();
@@ -57,4 +61,3 @@ function respond(res, func, argv) {
 		}
 	})
 }
-module.exports.respond = respond;

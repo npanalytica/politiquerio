@@ -2,8 +2,10 @@ const _ = require('underscore');
 const Q = require('q');
 const connection = require('./database');
 
-const Geo = require('./model/Geo');
-const Estadisticas = require('./model/Estadisticas');
+const Estados = require('./model/v1/estados');
+const Municipios = require('./model/v1/municipios');
+const Estadisticas = require('./model/v1/estadisticas');
+const Meta = require('./model/v1/meta');
 
 function Cache() {
 	this.data = null;
@@ -11,25 +13,24 @@ function Cache() {
 	this.init = function() {
 		var self = this;
 		connection.acquire(function(err, con) {
-			let pGeo = Geo.getEstadosMunicipios(con, {}).then((q) => {
+			let pEdos = Estados.get(con, null, {}).then((q) => {
 				return Q(q);
 			});
-			let pStats = Estadisticas.getEstadisticas(con, {}).then((q) => {
+			let pMuns = Municipios.get(con, null, {}).then((q) => {
 				return Q(q);
 			});
-			let pCuentas = Estadisticas.getCuentas(con, {}).then((q) => {
+			let pStat = Estadisticas.get(con, null, {}).then((q) => {
 				return Q(q);
 			});
-			Q.all([pGeo, pStats, pCuentas]).then((res) => {
-				let municipios = _.flatten(_.pluck(res[0], 'municipios'));
-				res[0].forEach((e) => { delete e.municipios; });
-				let estados = res[0];
-				let estadisticas = res[1];
+			let pCount = Meta.getCuentas(con).then((q) => {
+				return Q(q);
+			});
+			Q.all([pEdos, pMuns, pStat, pCount]).then((res) => {
 				self.data = {
 					estados: res[0],
-					municipios: municipios,
-					estadisticas: estadisticas,
-					cuentas: res[2]
+					municipios: res[1],
+					estadisticas: res[2],
+					cuentas: res[3]
 				}
 			}).catch((err) => {
 				console.log(err);

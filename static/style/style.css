@@ -1,3 +1,58 @@
+.api-section {
+  margin-top: 5px;
+  padding-top: 5px;
+  margin-top: 1px solid #e1e1e1; }
+
+.api-title {
+  display: block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 14pt;
+  color: #d1495b; }
+
+.api-desc {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 12pt;
+  color: #383c44; }
+
+.api-requests {
+  display: block;
+  font-weight: bold;
+  font-size: 12pt;
+  margin-bottom: 10px; }
+
+.api-code {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 12pt;
+  background-color: #e1e1e1;
+  border: 1px solid #777; }
+
+.api-code-method {
+  font-weight: bold; }
+
+.api-code-run {
+  display: block;
+  background-color: #4679B2;
+  color: #fff;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  cursor: pointer;
+  padding: 5px;
+  float: right;
+  margin-right: 5px; }
+
+.api-code-run:hover {
+  background-color: #d1495b; }
+
+.api-result {
+  max-height: 100px;
+  overflow: scroll; }
+
 #footer {
   background-color: #383c44;
   color: #fff;
@@ -80,6 +135,37 @@
   margin-top: 16px;
   margin-bottom: 16px;
   font-size: 10pt; }
+
+.search-result-table {
+  font-size: 10pt; }
+
+.search-result-table > tr {
+  margin: 0px !important;
+  padding: 0px !important; }
+
+.search-result-table-cell {
+  margin: 0px !important;
+  padding: 0px !important;
+  text-align: center; }
+
+.search-result-table-cell > span {
+  display: inline-block;
+  padding: 3px;
+  text-align: center; }
+
+.search-result-table-cell-header {
+  background-color: #383c44;
+  color: #fff; }
+
+.search-result-table-cell-value {
+  background-color: #e1e1e1;
+  color: #383c44; }
+
+.search-result-table-cell-ball {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  border-radius: 10px; }
 
 #navbar {
   box-sizing: border-box;
