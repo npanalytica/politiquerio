@@ -7,13 +7,10 @@
 angular.module('app').directive('searchBar', function() {
 	return {
 		restrict: 'E',
-		scope: {
-			errorMessage: '=?',
-			httpStatus: '=',
-			margin: '@?'
-		},
+		scope: {},
 		controller: 'SearchBarController',
 		controllerAs: 'vm',
+		bindToController: true,
 		templateUrl: '/components/search_bar/view.html'
 	}
 });

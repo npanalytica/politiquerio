@@ -1,0 +1,71 @@
+.x-badge {
+    background-color: #ee565F;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 12px;
+    display: inline-block;
+    min-width: 30px;
+    padding-top: 1px;
+    text-align: center;
+    box-sizing: border-box;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.nospacing {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+.estado-unfocused {
+    opacity: 0.4 !important;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 10px;
+    font: 14px sans-serif;
+    color: #fff;
+    background: black;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.mapa-invisible {
+	opacity: 0;
+	transition: opacity 0.4s ease-in-out;
+}
+
+.mapa {
+	opacity: 1;
+	transition: opacity 0.4s ease-in-out;
+}
+
+.estado {
+    cursor: pointer;
+}
+
+.estado-border {
+    fill: none;
+    stroke: #000;
+    stroke-width: 0.3;
+    stroke-linejoin: round;
+}
+
+.estado-border-hover {
+    fill: none;
+    stroke: #000;
+    stroke-width: 10;
+    stroke-linejoin: round;
+}
+
+.municipio-border {
+    fill: none;
+    stroke: #000;
+    stroke-width: 0.1;
+    stroke-linejoin: round;
+}

@@ -9,8 +9,10 @@ angular.module('app').controller('LandingController', [
 
 	self.cuentas = {estadisticas: '???', datasets: '???', datos: '???'};
 
-	Rest.add('/apiv1/meta/cuentas/').load(function(err, result) {
-		if(!err) self.cuentas = result[0];
+	Rest.add('/apiv1/meta/cuentas/').load(function(err, res) {
+		if(!err) {
+			self.cuentas = res[0];
+		}
 	});
 
 }]);

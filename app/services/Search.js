@@ -4,10 +4,19 @@
 **/
 
 angular.module('app').service('Search', [
-'Rest', 'Static',
-function(Rest, Static) {
+'Rest', 'ChartHelpers',
+function(Rest, ChartHelpers) {
 
 	function assembleSearch(result, geo, type) {
+
+		var con_estados = _.filter(result, function(ds) {
+			return ds.n_estatales > 0;
+		});
+
+		var ds_con_estados = _.map(con_estados, function(ds) {
+			return {id: ds.id, fecha: ds.fecha, fuente: ds.fuente}
+		});
+
 
 		var prop = type == 'estatal' ? 'estado_id' : 'municipio_id';
 
@@ -17,6 +26,7 @@ function(Rest, Static) {
 			fuente: result[0].fuente,
 			fuente_id: result[0].fuente_id,
 			fuente_descripcion: result[0].fuente_descripcion,
+			datasets_con_estados: ds_con_estados,
 			labels: [],
 			datasets: []
 		}
@@ -41,18 +51,7 @@ function(Rest, Static) {
 		}
 
 		for(var i = 0; i < indices.length; i++) {
-			var color = Static.colors[i % Static.colors.length];
-			var light = Static.light_colors[i % Static.colors.length];
-			datasets.push({
-				label: labels[i],
-				data: datos[i],
-				fill: false,
-				borderColor: color,
-				pointBorderColor: color,
-				backgroundColor: color,
-				pointBackgroundColor: light,
-				borderWidth: 2
-			});
+			datasets.push(ChartHelpers.makeDataset(labels[i], datos[i], i));
 		}
 
 		meta.datasets = datasets;

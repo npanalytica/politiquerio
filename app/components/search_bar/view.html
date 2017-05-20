@@ -4,12 +4,15 @@
 
 <http-loader http-status="vm.search.status"></http-loader>
 
-<div>
-
+<div ng-if="vm.result">
 	<div class="row center search-result-header">
 		<span ng-bind="vm.result.estadistica"></span>
-		<span ng-bind="vm.result.fuente"></span>
-		<center>
+		(<span ng-bind="vm.result.fuente"></span>)
+		<a href="" ng-click="vm.result = null; vm.results = [];
+			vm.search.text = ''; vm.chart_type = 'line';">
+			<i class="ion-close"></i>
+		</a>
+		<center class="margin-top-md">
 			<table class="search-result-table">
 				<tr>
 					<td class="search-result-table-cell">&nbsp;</td>
@@ -34,11 +37,30 @@
 		</center>
 	</div>
 
-
 	<div class="row">
-		<div style="width:960px; height:400px;">
-			<canvas id="myChart" width="960" height="400"></canvas>
-		</div>
+
+		<line-chart
+			ng-if="vm.chart_type != 'map'"
+			type="vm.chart_type"
+			labels="vm.result.labels"
+			datasets="vm.result.datasets"
+			height="400"
+			width="960">
+		</line-chart>
+
+		<mexico-map
+			ng-if="vm.chart_type == 'map'"
+			dataset-id="vm.mapa_dataset_id"
+			width="960">
+		</mexico-map>
+
+	</div>
+
+	<div class="margin-top-md center">
+		<button ng-click="vm.chart_type = 'line'">Línea</button>
+		<button ng-click="vm.chart_type = 'bar'">Barras</button>
+		<button ng-if="vm.result.datasets_con_estados.length > 0"
+			ng-click="vm.setMapDataset()">mapa</button>
 	</div>
 
 	<div class="row search-other-results">

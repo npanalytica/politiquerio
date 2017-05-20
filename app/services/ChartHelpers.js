@@ -4,22 +4,35 @@
 **/
 
 angular.module('app').service('ChartHelpers', [
-function() {
-
-	
-
+'Static',
+function(Static) {
 	return {
+		makeDataset: function(label, data, color) {
+			if(!isNaN(color)) {
+				color = Static.colors[color % Static.colors.length];
+			}
+			return {
+				label: label,
+				data: data,
+				fill: false,
+				borderColor: color,
+				pointBorderColor: color,
+				backgroundColor: color,
+				hoverBackgroundColor: color,
+				borderWidth: 2
+			}
+		},
 
-		makeChart: function(container, type, labels, datasets) {
-			var new_chart = new Chart(container, {
-				type: type,
-				data: {labels: labels, datasets: datasets},
-	    		options: {
-	        		scales: { yAxes: [{ticks: { beginAtZero:true }}]}
-	    		}
-			});
-			return new_chart;
+		zoomDatasets: function(index, ds, sort) {
+			var self = this;
+			var zoom = [];
+			for(var i = 0; i < ds.length; i++) {
+				zoom.push(self.makeDataset(ds[i].label, [ds[i].data[index]], i));
+			}
+			if(sort) {
+				zoom = _.sortBy(zoom, function(z) { return -z.data[0] });
+			}
+			return zoom;
 		}
-
 	}
 }]);

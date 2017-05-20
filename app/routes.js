@@ -15,5 +15,7 @@ angular.module('app').config(['$routeProvider', '$locationProvider',
 		templateUrl: '/api/v1/view.html',
 		controller: 'ApiV1Controller',
 		controllerAs: 'vm'
+	}).otherwise({
+		templateUrl: '/modules/temporary_splash/view.html'
 	});
 }]);

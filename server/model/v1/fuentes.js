@@ -15,6 +15,8 @@ module.exports.makeSelect = function(query) {
 
 module.exports.getHistory = function(con, type, id, stat_id, query) {
 	let d = Q.defer();
+	query.nombreFuentes = true;
+	query.numeros = true;
 	let pDatasets = Datasets.getFromSourceAndStat(con, id, stat_id,
 		query).then((res) => { return Q(res) });
 

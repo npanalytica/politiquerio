@@ -5,30 +5,25 @@
 **/
 
 angular.module('app').controller('SearchBarController', [
-'$timeout', 'Search', 'ChartDatasetMaker',
-function($timeout, Search, ChartDatasetMaker) {
+'$timeout', 'Search',
+function($timeout, Search) {
 	var self = this;
 
 	self.search = {
-		text: 'suicidios en Jalisco',
+		text: '',
 		status: 0,
 		result: null
 	}
 
-	self.estadistica = null;
-
-	var datasets = [
-		{label: 'Jalisco', data: [1,2,3]},
-		{label: 'Veracruz', data: [4,2,1]},
-		{label: 'Nuevo León', data: [1,5,3]},
-		{label: 'Chihuahua', data: [4,2,1]},
-		{label: 'Tamaulipas', data: [1,1,3]},
-		{label: 'México', data: [6,3,1]}
-	]
+	self.chart_type = 'line';
 
 	self.setEstadistica = function(result) {
 		self.result = result;
-		draw(result);
+	}
+
+	self.setMapDataset = function() {
+		self.chart_type = 'map';
+		self.mapa_dataset_id = self.result.datasets_con_estados[self.result.datasets_con_estados.length - 1].id;
 	}
 
 	self.updateSearch = function($e) {
@@ -37,23 +32,6 @@ function($timeout, Search, ChartDatasetMaker) {
 		Search.search(self.search.text, function(err, data) {
 			self.result = data[0];
 			self.results = data;
-			$timeout(function() { draw(data[0]); });
-		});
-	}
-
-	function draw(x) {
-		var ctx = document.getElementById("myChart");
-		var myChart = new Chart(ctx, {
-			type: 'line',
-
-			data: {
-				labels: x.labels,
-				datasets: x.datasets
-    		},
-    		options: {
-				legend: { position: 'bottom' },
-        		scales: { yAxes: [{ticks: { beginAtZero:true }}]}
-    		}
 		});
 	}
 
