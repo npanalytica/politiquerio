@@ -1,85 +1,60 @@
 const _ = require('underscore');
 const natural = require('natural');
-const tokenizer = new natural.TreebankWordTokenizer();
+const tokenizer = new natural.RegexpTokenizer({pattern: /\s/});
+const cache = require('./../../cache');
 
-/**
- * @desc: regresa todos los objetos de @array[@prop] que aparecen en @words
- * y cuya distancia JaroWinkler es menor que @cutoff
- * @param {int} cuttoff - El score mínimo que tiene que tener un match
- * @param {str} words - El arreglo de palabras a comparar
- * @param {arr} array - Arreglo que contiene los objetos a comparar
- * @param {prop} prop - La propiedad dentro de cada elemento de @array que
- *						usará para obtener el @needle
- * NOTE: Útil para encontrar matches de palabra vs frase. (e.g, "Guadalajara" vs
- * "homicidios en Guadalajara, Jalisco")
-*/
-function getMatchArray(cutoff, words, array, prop) {
-	prop = prop || 'nombre';
+const ESTADISTICAS_MIN_SCORE = 0.9;
+const GEO_MAX_SCORE = 1;
+const LEVENSHTEIN_CONFIG = {
+	insertion_cost: 1,
+	deletion_cost: 0.001,
+	substitution_cost: 1
+};
+
+module.exports.matchGeo = function(search, tipo) {
 	let matches = [];
-	for(let i = 0; i < array.length; i++) {
-		let score = getMaxScore(words, array[i][prop]);
-		if(score > cutoff) matches.push(array[i]);
+	let data = cache.data[tipo];
+	let tokens = tokenizer.tokenize(search);
+	for(let i = 0; i < data.length; i++) {
+		let words = tokenizer.tokenize(data[i].nombre);
+		n_matched_words = 0;
+		for(let j = 0; j < tokens.length; j++) {
+			for(let k = 0; k < words.length; k++) {
+				if(natural.JaroWinklerDistance(tokens[j], words[k]) >= ESTADISTICAS_MIN_SCORE) {
+					n_matched_words++;
+				}
+			}
+		}
+		if(n_matched_words >= words.length) matches.push(data[i]);
 	}
 	return matches;
 }
-module.exports.getMatchArray = getMatchArray;
 
-/**
- * @desc: regresa un arreglo sorteado de los objetos más parecidos a @words
- * @param {int} n_matches - El tamaño del arreglo a regresar
- * @param {str} words - El arreglo de palabras a comparar cada @needle
- * @param {arr} array - Arreglo que contiene los objetos a comparar
- * @param {prop} prop - La propiedad dentro de cada elemento de @array que
- *						usará para obtener el @needle
- * NOTE: Útil para encontrar matches de frase vs frase. (e.g, "homicidios de
- * muejeres en Chihuahua" vs "tasa de defunciones por homicidio. Mujer")
-*/
-function getMatches(n_matches, words, array, prop) {
-	prop = prop || 'nombre';
-	let guesses = [];
-	for(var i = 0; i < n_matches; i++) guesses.push({obj: null, score: 0});
-	for(let i = 0; i < array.length; i++) {
-		let new_score = getScore(words, array[i][prop]);
-		if(new_score > guesses[n_matches - 1].score) {
-			guesses[n_matches - 1] = {obj: array[i], score: new_score};
-			guesses = _.sortBy(guesses, (g) => { return -g.score });
+module.exports.matchEstadisticas = function(search, n_matches) {
+	let matches = []; // Las estadísticas encontradas
+	// Inicializa un array de {match=estadistica,score=No. keywords} vacío
+	for(let i = 0; i < n_matches; i++) matches.push({estadistica: null, score: 0});
+	let tokens = tokenizer.tokenize(search);
+	for(let i = 0; i < cache.data.estadisticas.length; i++) {
+		let score = 0; // <- Número de keywords en @search
+		for(let j = 0; j < cache.data.estadisticas[i].keywords.length; j++) {
+			for(let k = 0; k < tokens.length; k++) {
+				// Si algún keyword se encuentra en la búsqueda -> score++
+				let keyword_score = natural.JaroWinklerDistance(tokens[k],
+					cache.data.estadisticas[i].keywords[j]);
+				if(keyword_score >= ESTADISTICAS_MIN_SCORE) score++;
+			}
+		}
+		// Agrega a @matches si el score es mayor que el mínimo registrado
+		if(score > matches[n_matches - 1].score) {
+			matches[n_matches - 1].estadistica = cache.data.estadisticas[i];
+			matches[n_matches - 1].score = score;
+			// Ordena descendientemente
+			matches = _.sortBy(matches, (r) => { return -r.score });
 		}
 	}
-	return _.pluck(guesses, 'obj'); // No regresar scores
-}
-module.exports.getMatches = getMatches;
-
-
-/**
- * @desc: regresa el máximo score de JaroWinkler de @target en @words
- * NOTE: Útil para encontrar UNA SOLA palabra en un needle (e.g,
- * 'Asesinatos en Guadalajara' -> Guadalajara)
-*/
-function getMaxScore(words, target) {
-	let score = 0;
-	for(let i = 0; i < words.length; i++) {
-		let new_score = natural.JaroWinklerDistance(target, words[i]);
-		if(new_score > score) score = new_score;
-	}
-	return score;
-}
-
-
-/**
- * @desc: regresa el score de JaroWinkler de @target en @words
- * NOTE: Útil para encontrar MÚLTIPLES PALABRAS palabra en un needle (e.g,
- * 'tasa de homicidios en Jalisco' -> 'tasa de homicidios')
-*/
-function getScore(words, target) {
-	let score = 0;
-	let needles = tokenizer.tokenize(target);
-	for(let i = 0; i < words.length; i++) {
-		for(let j = 0; j < needles.length; j++) {
-			let new_score = natural.JaroWinklerDistance(needles[j], words[i]);
-			// Ignora palabras que no son muy parecidas
-			if(new_score > 0.8) score += new_score;
-		}
-	}
-	// Penaliza al score entre más grande sea
-	return (score/needles.length);
+	// Regresa solamente las estadísticas que no sean nulas
+	return _.pluck(
+		_.filter(matches, function(r) { return r.score > 0 }),
+	'estadistica');
 }

@@ -1,9 +1,6 @@
 const _ = require('underscore');
 const Q = require('q');
 const DB = require('./../../dbhelpers');
-const cache = require('./../../cache');
-const natural = require('natural');
-const tokenizer = new natural.RegexpTokenizer({pattern: /\s/});
 const Matchers = require('./matchers');
 const Queries = require('./queries');
 const Guesses = require('./guesses');
@@ -14,13 +11,12 @@ const N_RES = 5;
 module.exports = function(con, string) {
 	let d = Q.defer();
 
-	let tokens = tokenizer.tokenize(string);
+	string = string.replace(/\,/g, '');
 
-	let estados = Matchers.getMatchArray(MINSCORE, tokens, cache.data.estados);
-	let municipios = Matchers.getMatchArray(MINSCORE, tokens, cache.data.municipios);
-	let estadisticas = Matchers.getMatches(N_RES, tokens, cache.data.estadisticas);
+	let estados = Matchers.matchGeo(string, 'estados');
+	let municipios = Matchers.matchGeo(string, 'municipios');
+	let estadisticas = Matchers.matchEstadisticas(string, 10);
 	let type = Guesses.guessType(estados, municipios);
-
 	Q.fcall(Queries.getBestSources, con, estadisticas, type).then((fuentes) => {
 		let d2 = Q.defer();
 		let promises = [];
@@ -33,7 +29,6 @@ module.exports = function(con, string) {
 			let geo = null;
 			if(type == 'estatal') { geo = estados } else
 			if(type == 'municipal') { geo = municipios }
-
 			d2.resolve({type: type, data: data, geo: geo});
 		}).catch((err) => {
 			d2.reject(err);

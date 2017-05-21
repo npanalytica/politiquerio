@@ -26,10 +26,14 @@ function Cache() {
 				return Q(q);
 			});
 			Q.all([pEdos, pMuns, pStat, pCount]).then((res) => {
+				let stats = res[2];
+				for(let i = 0; i < stats.length; i++) {
+					stats[i].keywords = stats[i].keywords.split(', ');
+				}
 				self.data = {
 					estados: res[0],
 					municipios: res[1],
-					estadisticas: res[2],
+					estadisticas: stats,
 					cuentas: res[3]
 				}
 			}).catch((err) => {

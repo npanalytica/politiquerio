@@ -5,7 +5,7 @@ const Datasets = require('./datasets');
 const Fuentes = require('./fuentes');
 
 module.exports.makeSelect = function(query) {
-	let sql = ["SELECT estadisticas.id, estadisticas.nombre"];
+	let sql = ["SELECT estadisticas.id, estadisticas.nombre, estadisticas.keywords"];
 	let joins = [];
 
 	// Estados
