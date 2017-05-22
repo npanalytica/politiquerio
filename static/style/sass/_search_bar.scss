@@ -17,6 +17,20 @@
 	font-size: 10pt;
 }
 
+.search-viewport {
+	overflow: hidden;
+}
+
+.search-viewport-small {
+	height: 400px;
+	transition: height 0.2s;
+}
+
+.search-viewport-large {
+	height: 622px;
+	transition: height 0.2s;
+}
+
 .search-result-table {
 	font-size: 10pt;
 }

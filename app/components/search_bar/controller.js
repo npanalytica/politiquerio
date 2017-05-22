@@ -32,6 +32,7 @@ function($timeout, Search) {
 		Search.search(self.search.text, function(err, data) {
 			self.result = data[0];
 			self.results = data;
+			self.chart_type = 'line';
 		});
 	}
 

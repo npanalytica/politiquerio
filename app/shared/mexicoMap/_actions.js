@@ -29,7 +29,7 @@ function(Zoom) {
 		estadoClick: function(d, svg, path, dim) {
 			var centroid = path.centroid(d);
 			var k = Zoom.getProportion(d, path, dim);
-			var coords = [centroid[0], centroid[1], k];
+			var coords = [centroid[0] + 10, centroid[1] + 10, k];
 			svg.selectAll('.estado').classed('estado-unfocused', function(d_2) {
 				if(d != d_2) return true;
 			})

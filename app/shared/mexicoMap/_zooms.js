@@ -15,7 +15,7 @@ function() {
 			var K_FIX = -1; // <- Esto se necesita por razones
 			var bounds = path.bounds(d);
 			var w_dif = dim.width / ((bounds[1][0] - bounds[0][0]));
-			var h_dif = dim.height / ((bounds[1][1] - bounds[0][1]));
+			var h_dif = (dim.height + 10) / ((bounds[1][1] - bounds[0][1]));
 			var k = w_dif < h_dif ? w_dif : h_dif;
 			if(k > 15) {
 				return 20;
@@ -24,7 +24,7 @@ function() {
 			}
 		},
 		zoomOut: function() {
-			
+
 		}
 	}
 }]);

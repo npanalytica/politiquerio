@@ -11,7 +11,7 @@ function() {
 	};
 
 	return {
-		empty : 'e1e1e1', // Color para cuando no hay datos
+		empty : '383c44', // Color para cuando no hay datos
 		max	  : '4679b2', // Color para el valor máximo
 		min	  : 'e1e1e1', // Color para el valor mínimo
 		gradient: function(ratio, color1, color2) {

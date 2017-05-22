@@ -37,10 +37,13 @@
 		</center>
 	</div>
 
-	<div class="row">
+	<div class="row search-viewport" ng-class = "{
+		'search-viewport-small': vm.chart_type != 'map',
+		'search-viewport-large': vm.chart_type == 'map'
+	}">
 
 		<line-chart
-			ng-if="vm.chart_type != 'map'"
+			ng-show="vm.chart_type != 'map'"
 			type="vm.chart_type"
 			labels="vm.result.labels"
 			datasets="vm.result.datasets"
@@ -49,7 +52,7 @@
 		</line-chart>
 
 		<mexico-map
-			ng-if="vm.chart_type == 'map'"
+			ng-show="vm.chart_type == 'map'"
 			dataset-id="vm.mapa_dataset_id"
 			width="960">
 		</mexico-map>

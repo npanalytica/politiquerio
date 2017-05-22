@@ -36,13 +36,15 @@ div.tooltip {
 }
 
 .mapa-invisible {
-	opacity: 0;
-	transition: opacity 0.4s ease-in-out;
+	height: 0px;
+	transition: height 0.2s;
 }
 
 .mapa {
-	opacity: 1;
-	transition: opacity 0.4s ease-in-out;
+	padding: 10px;
+	background: #e1e1e1;
+	height: 612px;
+	transition: height 0.2s;
 }
 
 .estado {

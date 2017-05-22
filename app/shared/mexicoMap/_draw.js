@@ -26,7 +26,6 @@ function(Helpers, Actions, Gradients) {
 		},
 		TOOLTIP: _tooltip,
 		setDatasets: function(ds_estatal, ds_municipal) {
-			console.log(ds_estatal);
 			this.DATASETS = {
 				estatal: {
 					min: _.min(_.pluck(ds_estatal, 'valor')),
