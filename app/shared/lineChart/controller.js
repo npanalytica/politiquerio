@@ -44,7 +44,10 @@ function($scope, $timeout, ChartHelpers) {
     		options: {
 				responsive: true,
 				legend: { position: 'bottom' },
-        		scales: { yAxes: [{ticks: { beginAtZero:true }}]},
+        		scales: {
+					yAxes: [{ticks: { beginAtZero:true }}],
+					xAxes: []
+				},
 				onClick: chartClick
     		}
 		});

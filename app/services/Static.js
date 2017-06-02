@@ -35,6 +35,11 @@ angular.module('app').service('Static', [function(){
 			'#Beeeff', //Super light blue
 			'#42525f', // Gray blue
 			'#4d4d4d', //Gray
-		]
+		],
+		meses: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
+			'Agosto', 'Septiemre', 'Octubre', 'Noviembre', 'Diciembre'],
+		letras: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+				 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+			 	 'y', 'z']
 	}
 }]);

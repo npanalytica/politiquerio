@@ -1,0 +1,31 @@
+@import "colors";
+
+.exp-link {
+	cursor: pointer;
+}
+
+.exp-link:hover {
+	text-decoration: underline;
+}
+
+.exp-item {
+	cursor: pointer;
+	padding: 5px;
+	color: $color-soft;
+	font-size: 13pt;
+	border-bottom: 1px solid $color-light;
+}
+
+.exp-item:hover {
+
+}
+
+.exp-keyword {
+	padding: 3px;
+	background-color: $color-superlight;
+	border: 1px solid $color-light;
+	color: $color-primary;
+	font-size: 8pt;
+	margin-right: 10px;
+	border-radius: 5px;
+}

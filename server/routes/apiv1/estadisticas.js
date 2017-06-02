@@ -2,6 +2,7 @@ const _ = require('underscore');
 const DB = require('./../../dbhelpers');
 const Estadisticas = require('./../../model/v1/estadisticas');
 const Fuentes = require('./../../model/v1/fuentes');
+const cache = require('./../../cache');
 
 module.exports = {
 	configure: function(app) {
@@ -10,6 +11,12 @@ module.exports = {
 		app.get("/apiv1/estadisticas/:id?", function(req, res) {
 			req.query = req.query || {};
 			DB.respond(res, Estadisticas.get, [req.params.id, req.query]);
+		});
+
+		/** @desc - regresa los datasets atados a la estadistica **/
+		app.get("/apiv1/estadisticas/search/:search", function(req, res) {
+			req.query = req.query || {};
+			DB.respond(res, Estadisticas.search, [req.params.search]);
 		});
 
 		/** @desc - regresa los datasets atados a la estadistica **/

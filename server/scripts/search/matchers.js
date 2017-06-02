@@ -1,7 +1,6 @@
 const _ = require('underscore');
 const natural = require('natural');
 const tokenizer = new natural.RegexpTokenizer({pattern: /\s/});
-const cache = require('./../../cache');
 
 const ESTADISTICAS_MIN_SCORE = 0.9;
 const GEO_MAX_SCORE = 1;
@@ -12,6 +11,7 @@ const LEVENSHTEIN_CONFIG = {
 };
 
 module.exports.matchGeo = function(search, tipo) {
+	const cache = require('./../../cache');
 	let matches = [];
 	let data = cache.data[tipo];
 	let tokens = tokenizer.tokenize(search);
@@ -31,6 +31,7 @@ module.exports.matchGeo = function(search, tipo) {
 }
 
 module.exports.matchEstadisticas = function(search, n_matches) {
+	const cache = require('./../../cache');
 	let matches = []; // Las estadísticas encontradas
 	// Inicializa un array de {match=estadistica,score=No. keywords} vacío
 	for(let i = 0; i < n_matches; i++) matches.push({estadistica: null, score: 0});

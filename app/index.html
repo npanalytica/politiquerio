@@ -8,6 +8,8 @@
 		estadísticas números indicadores tasa asesinatos gdp pobreza índices"/>
 		<!-- Underscore -->
 		<script src="/node/underscore/underscore-min.js"></script>
+		<!-- Mathjs -->
+		<script src="/node/mathjs/dist/math.min.js"/></script>
 		<!-- Chartjs -->
 		<script src="/bower/chart.js/dist/Chart.min.js"></script>
 		<!-- Ionicons -->
@@ -15,18 +17,24 @@
 		<!-- Angular -->
 		<script src="/bower/angular/angular.min.js"></script>
 		<script src="/bower/angular-route/angular-route.min.js"></script>
+		<script src="/bower/angular-sanitize/angular-sanitize.min.js"></script>
 		<!-- Skeleton -->
 		<link rel="stylesheet" media="all" href="/bower/skeleton/css/normalize.css">
 		<link rel="stylesheet" media="all" href="/bower/skeleton/css/skeleton.css">
+		<!-- Filesaver -->
+		<script src="/bower/file-saver/FileSaver.min.js"></script>
 		<!-- d3 -->
 		<script src="/bower/d3/d3.min.js"></script>
 		<script src="/bower/topojson/topojson.min.js"></script>
+		<!-- Content editable -->
+		<script src="/bower/angular-contenteditable/angular-contenteditable.js"></script>
 		<!-- Dev -->
 		<script src="app.js"></script>
 		<script src="config.js"></script>
 		<script src="routes.js"></script>
 		<!-- Services -->
 		<script src="services/Rest.js"></script>
+		<script src="services/RESTDataset.js"></script>
 		<script src="services/Search.js"></script>
 		<script src="services/DatasetHelpers.js"></script>
 		<script src="services/Static.js"></script>
@@ -34,6 +42,7 @@
 		<script src="services/helpers.js"></script>
 		<!-- Shared -->
 		<script src="shared/httpLoader/controller.js"></script>
+		<script src="shared/paginationView/directive.js"></script>
 		<script src="shared/lineChart/directive.js"></script>
 		<script src="shared/lineChart/controller.js"></script>
 		<script src="shared/mexicoMap/_draw.js"></script>
@@ -48,8 +57,14 @@
 		<script src="components/top_nav/directive.js"></script>
 		<script src="components/search_bar/controller.js"></script>
 		<script src="components/search_bar/directive.js"></script>
+		<script src="components/dataset_view/controller.js"></script>
+		<script src="components/dataset_view/directive.js"></script>
+		<!--<script src="components/dataset_view/_dataset_custom_column.js"></script>-->
+		<script src="components/dataset_view/_dataset_table.js"></script>
+		<!--<script src="components/dataset_view/_dataset_map.js"></script>-->
 		<!-- Controllers -->
 		<script src="modules/landing/controller.js"></script>
+		<script src="modules/explorador/controller.js"></script>
 		<script src="api/v1/controller.js"></script>
 		<link rel="stylesheet" media="all" href="static/style/style.css"/>
 	</head>

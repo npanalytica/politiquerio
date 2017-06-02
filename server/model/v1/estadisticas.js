@@ -3,6 +3,7 @@ const Q = require('q');
 const DB = require('./../../dbhelpers');
 const Datasets = require('./datasets');
 const Fuentes = require('./fuentes');
+const Match = require('./../../scripts/search/matchers');
 
 module.exports.makeSelect = function(query) {
 	let sql = ["SELECT estadisticas.id, estadisticas.nombre, estadisticas.keywords"];
@@ -21,6 +22,12 @@ module.exports.makeSelect = function(query) {
 	sql.push("WHERE TRUE");
 
 	return sql;
+}
+
+module.exports.search = function(con, search) {
+	let d = Q.defer();
+	d.resolve(Match.matchEstadisticas(search, 20));
+	return d.promise;
 }
 
 module.exports.get = function(con, id, query) {

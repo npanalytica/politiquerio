@@ -24,7 +24,7 @@ app.use('/bower', express.static(__dirname + './../bower_components/'));
 require('./routes/apiv1/_routes').configure(app);
 
 let server = app.listen(8000, function() {
-	console.log('Server listening on port ' + server.address().port);
+	console.log('Politiquerío está corriendo en el puerto ' + server.address().port);
 });
 
 module.exports = app; // For testing

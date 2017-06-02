@@ -1,3 +1,5 @@
+@import "colors";
+
 .x-badge {
     background-color: #ee565F;
     color: #fff;
@@ -42,7 +44,7 @@ div.tooltip {
 
 .mapa {
 	padding: 10px;
-	background: #e1e1e1;
+	//background: #e1e1e1;
 	height: 612px;
 	transition: height 0.2s;
 }
@@ -53,14 +55,14 @@ div.tooltip {
 
 .estado-border {
     fill: none;
-    stroke: #000;
-    stroke-width: 0.3;
+    stroke: $color-dark;
+    stroke-width: 0.6;
     stroke-linejoin: round;
 }
 
 .estado-border-hover {
     fill: none;
-    stroke: #000;
+    stroke: $color-dark;
     stroke-width: 10;
     stroke-linejoin: round;
 }
@@ -68,6 +70,6 @@ div.tooltip {
 .municipio-border {
     fill: none;
     stroke: #000;
-    stroke-width: 0.1;
+    stroke-width: 0.2;
     stroke-linejoin: round;
 }

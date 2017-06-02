@@ -12,6 +12,7 @@
     "body-parser": "^1.17.1",
     "express": "~4.14.0",
     "express-query-boolean": "^1.0.0",
+    "mathjs": "^3.13.1",
     "mysql": "~2.11.1",
     "natural": "^0.5.1",
     "q": "^1.4.1",

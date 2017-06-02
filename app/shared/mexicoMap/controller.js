@@ -23,25 +23,20 @@ function($scope, $timeout, Rest, Helpers, Draw) {
 	.load(function(err, res) {
 		if(!err) {
 			Draw.setGeoJson(res[0], res[1]);
-			if(Draw.DATASETS && self.datasetId) {
+			if(Draw.DATASETS && self.DATASET) {
 				Draw.mexico(container_id, self.width);
+				self.initialized = true;
 			}
 		}
 	});
 
 	$scope.$watch(function() {
-		return self.datasetId;
-	}, function(_datasetId) {
-		if(_datasetId) {
-			Rest.add('/apiv1/datasets/' + _datasetId + '/estatal?nombreEstados=true')
-			.add('/apiv1/datasets/' + _datasetId + '/municipal?nombreMunicipios=true')
-			.load(function(err, res) {
-				if(!err) {
-					Draw.setDatasets(res[0], res[1]);
-					if(Draw.GEOJSON) Draw.mexico(container_id, self.width);
-					self.initialized = true;
-				}
-			});
+		return self.dataset;
+	}, function(_dataset) {
+		if(_dataset) {
+			Draw.setDataset(_dataset);
+			if(Draw.GEOJSON) Draw.mexico(container_id, self.width);
+			self.initialized = true;
 		}
 	});
 

@@ -25,18 +25,13 @@ function(Helpers, Actions, Gradients) {
 			right_longitude	: -86.71040527005668
 		},
 		TOOLTIP: _tooltip,
-		setDatasets: function(ds_estatal, ds_municipal) {
-			this.DATASETS = {
-				estatal: {
-					min: _.min(_.pluck(ds_estatal, 'valor')),
-					max: _.max(_.pluck(ds_estatal, 'valor')),
-					datos: Helpers.dictionarify(ds_estatal, 'estado_id')
-				},
-				municipal: {
-					min: _.min(_.pluck(ds_municipal, 'valor')),
-					max: _.max(_.pluck(ds_municipal, 'valor')),
-					datos: Helpers.dictionarify(ds_municipal, 'municipio_id')
-				}
+		setDataset: function(ds) {
+			this.DATASET = ds;
+			var eds = _.pick(ds, function(v,k) { return k < 1000; });
+			var mns = _.pick(ds, function(v,k) { return k > 1000; });
+			this.G = {
+				estatal: {min: _.min(eds), max: _.max(eds)},
+				municipal: {min: _.min(mns), max: _.max(mns)}
 			}
 		},
 		setGeoJson: function(estados, municipios) {
@@ -79,7 +74,7 @@ function(Helpers, Actions, Gradients) {
 			.attr("class", function(d) { return 'estado'; })
 			.on("mousemove", function(d) { Actions.mouseMove(self.TOOLTIP); })
 			.on("mouseover", function(d) {
-				Actions.mouseOver(d, 'estado', self.TOOLTIP, self.DATASETS.estatal);
+				Actions.mouseOver(d, 'estado', self.TOOLTIP, self.DATASET);
 			})
 			.on("mouseout", function(d) { Actions.mouseOut(self.TOOLTIP); })
 			.on("click", function(d) {
@@ -92,7 +87,7 @@ function(Helpers, Actions, Gradients) {
 			.datum(topojson.mesh(self.GEOJSON.estados,
 				self.GEOJSON.estados.objects.states))
 			.attr("d", self.PATH).attr("class", 'estado-border');
-			Gradients.draw(self.SVG, 'estado', self.DATASETS);
+			Gradients.draw(self.SVG, 'estado', self.DATASET, self.G);
 		},
 		municipios: function(estado_id) {
 			var self = this;
@@ -110,7 +105,7 @@ function(Helpers, Actions, Gradients) {
 			.append("path")
 			.on("mousemove", function(d) { Actions.mouseMove(self.TOOLTIP); })
 			.on("mouseover", function(d) {
-				Actions.mouseOver(d, 'municipio', self.TOOLTIP, self.DATASETS.municipal);
+				Actions.mouseOver(d, 'municipio', self.TOOLTIP, self.DATASET);
 			})
 			.on("mouseout", function(d) { Actions.mouseOut(self.TOOLTIP); })
 			.on("click", function(d) {
@@ -122,7 +117,7 @@ function(Helpers, Actions, Gradients) {
 			self.SVG.append("path")
 			.datum(topojson.mesh(self.GEOJSON.estados, mun_data))
 			.attr("d", self.PATH).attr("class", 'municipio-border');
-			Gradients.draw(self.SVG, 'municipio', self.DATASETS);
+			Gradients.draw(self.SVG, 'municipio', self.DATASET, self.G);
 		}
 	}
 }]);

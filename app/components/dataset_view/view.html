@@ -1,0 +1,22 @@
+
+<div class="center" style="margin-top:10px; margin-bottom:10px;"
+	ng-if="vm.display == 'map'">
+	<a href="" ng-click="vm.hideMap()">
+		<i class="ion-arrow-left-b"></i> Tabla
+	</a>
+</div>
+
+<mexico-map
+	ng-show="vm.display == 'map'"
+	dataset="vm.map_dataset"
+	width="960">
+</mexico-map>
+
+<dataset-table
+	ng-show="vm.display == 'table'"
+	datasets="vm.datasets"
+	estados="vm.estados"
+	table="vm.table"
+	show-map="vm.showMap(index)"
+	municipios="vm.municipios">
+</dataset-table>

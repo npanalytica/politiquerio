@@ -1,0 +1,71 @@
+@import "colors";
+
+.ds-link {
+	color: #fff;
+}
+
+.ds-link:hover {
+	color: $color-secondary;
+}
+
+.ds-table {
+	margin-top: 10px;
+	width: 100%;
+}
+
+.ds-header-row {
+	border-bottom: 3px solid $color-medium;
+}
+
+.ds-header {
+	padding: 0px !important;
+	margin: 0px !important;
+	padding-top: 4px !important;
+	padding-bottom: 4px !important;
+	background-color: $color-dark;
+	color: $color-superlight;
+}
+
+.ds-header-label {
+	display: flex;
+	margin-left: 5px;
+	align-items: center !important;
+	height: 30px;
+}
+
+.ds-remove-link {
+	color: #fff;
+}
+
+.ds-remove-link:hover {
+	color: $color-secondary;
+}
+
+.ds-select-btn {
+	padding: 5px;
+	cursor: pointer;
+}
+
+.ds-header-map {
+	cursor: pointer;
+	align-self: flex-start;
+	color: #fff;
+	height: 30px;
+	width: 30px;
+	box-sizing: border-box;
+	padding-top: 2px;
+	margin-right: 5px;
+	text-align: center;
+}
+
+.ds-header-map:hover {
+	color: $color-secondary;
+}
+
+.ds-row {
+	padding: 10px !important;
+}
+
+.ds-row-odd {
+	background-color: $color-verylight;
+}

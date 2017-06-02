@@ -1,0 +1,64 @@
+<div style="margin-top:10px; margin-bottom: 10px;" class="center">
+	<a href="" ng-click="vm.downloadCSV()">
+		<i class="ion-archive"></i> Descargar éste dataset
+	</a>
+</div>
+<table class="ds-table" ng-if="vm.table">
+	<thead>
+		<tr class="ds-header-row">
+			<th class="ds-header">
+				<div class="ds-header-label">
+					<span ng-if="vm.table_display == 0">
+						<a href="" class="ds-link" ng-click="vm.sortBy(1)">
+							<span ng-if="vm.sort.index == 1">
+								<i class="ion-arrow-up-b" ng-if="!vm.sort.reverse"></i>
+								<i class="ion-arrow-down-b" ng-if="vm.sort.reverse"></i>
+							</span>
+							Estados
+						</a>
+					</span>
+					<span ng-if="vm.table_display != 0">
+						<a href="" class="ds-link" ng-click="vm.updateDisplay(0)">
+							<i class="ion-arrow-left-b"></i>
+							Regresar a estados
+						</a>
+					</span>
+				</div>
+			</th>
+			<th class="ds-header"
+				ng-repeat="h in vm.table.headers track by $index"
+				ng-if="$index > 1">
+				<div class="ds-header-label">
+					<span class="ds-header-map" ng-click="vm.mapClick($index)">
+						<i class="ion-map"></i>
+					</span>
+					<a href="" class="ds-link" ng-click="vm.sortBy($index)">
+						<span ng-if="vm.sort.index == $index">
+							<i class="ion-arrow-up-b" ng-if="!vm.sort.reverse"></i>
+							<i class="ion-arrow-down-b" ng-if="vm.sort.reverse"></i>
+						</span>
+						<span ng-bind="h"></span>
+					</a>
+				</div>
+		  </th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="ds-row" ng-class="{'ds-row-odd': $odd}"
+			ng-repeat="row in vm.table.data[vm.table_display]
+			| orderBy:vm.sortFunc:vm.sort.reverse
+			| limitTo: vm.pagination.items_per_page :
+				vm.pagination.current_page * vm.pagination.items_per_page
+			track by $index">
+			<td ng-repeat="v in row track by $index" ng-if="!$first">
+				<a href="" ng-click="vm.updateDisplay(row[0])"
+					ng-if="($index == 1)">
+					<span ng-bind="v"></span>
+				</a>
+				<span ng-if="$index > 1" ng-bind="v.toLocaleString()"></span>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<pagination-view ng-if="!vm.limit" pagination="vm.pagination"></pagination-view>

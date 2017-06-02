@@ -5,8 +5,8 @@
 **/
 
 angular.module('app').controller('SearchBarController', [
-'$timeout', 'Search',
-function($timeout, Search) {
+'Rest', 'DatasetHelpers', '$timeout', 'Search',
+function(Rest, Dataset, $timeout, Search) {
 	var self = this;
 
 	self.search = {
@@ -22,8 +22,14 @@ function($timeout, Search) {
 	}
 
 	self.setMapDataset = function() {
-		self.chart_type = 'map';
-		self.mapa_dataset_id = self.result.datasets_con_estados[self.result.datasets_con_estados.length - 1].id;
+		var dataset_id = self.result.datasets_con_estados
+		[self.result.datasets_con_estados.length - 1].id;
+		Rest.add('/apiv1/datasets/' + dataset_id + '/estatal/')
+		.add('/apiv1/datasets/' + dataset_id + '/municipal/')
+		.load(function(err, res) {
+			self.map_dataset = Dataset.toMap2(res[0], res[1]);
+			self.chart_type = 'map';
+		});
 	}
 
 	self.updateSearch = function($e) {

@@ -17,7 +17,7 @@ function(Zoom) {
 				d.properties.state_name : d.properties.mun_name;
 			var id = d.properties.state_code;
 			if(tipo == 'municipio') id = id * 1000 + d.properties.mun_code;
-			if(dataset.datos[id]) texto = dataset.datos[id].valor.toLocaleString();
+			if(dataset[id]) texto = dataset[id].toLocaleString();
 			tooltip.style("opacity", 0.9);
 			tooltip.html(nombre + ': ' + texto)
 				.style("left", (d3.event.pageX) + "px")

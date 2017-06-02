@@ -8,7 +8,7 @@ angular.module('app').directive('mexicoMap', function() {
 	return {
 		restrict: 'E',
 		scope: {
-			datasetId: '=',
+			dataset: '=',
 			width: '='
 		},
 		controller: 'MexicoMapController',
