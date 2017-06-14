@@ -36,7 +36,7 @@ function($scope, $timeout, ChartHelpers) {
 		if(chart) chart.destroy();
 
 		chart = new Chart(ctx, {
-			type: self.type,
+			type: 'line',
 			data: {
 				labels: labels,
 				datasets: datasets

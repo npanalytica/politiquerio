@@ -3,7 +3,7 @@ angular.module('app').config(['$routeProvider', '$locationProvider',
 	$locationProvider.hashPrefix('');
 	$routeProvider.when('/', {
 		templateUrl: '/modules/temporary_splash/view.html',
-	}).when('/landing/', {
+	}).when('/landing/:prequery?', {
 		templateUrl: '/modules/landing/view.html',
 		controller: 'LandingController',
 		controllerAs: 'vm'

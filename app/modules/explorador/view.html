@@ -1,6 +1,100 @@
 <top-nav></top-nav>
 
-<!-- Menu superior -->
+<div class="container naked-container">
+	<div class="row">
+		<div class="three columns">
+			<div>
+				<span class="exp-busqueda-section-top">
+					<span>buscar</span>
+				</span>
+				<input type="text" placeholder="Búsqueda..." ng-model="vm.search.text"/>
+			</div>
+			<div class="exp-busqueda-section">
+				<span class="exp-busqueda-section-top">
+					<span>con datos</span>
+				</span>
+				<span
+					class="exp-busqueda-link"
+					ng-click="vm.search.has_national_data = !vm.search.has_national_data">
+					<i ng-class="{
+						'ion-android-checkbox-outline': vm.search.has_national_data,
+						'ion-android-checkbox-outline-blank': !vm.search.has_national_data
+					}"></i>
+					<span>nacionales</span>
+				</span>
+				<span
+					class="exp-busqueda-link"
+					ng-click="vm.search.has_state_data = !vm.search.has_state_data">
+					<i ng-class="{
+						'ion-android-checkbox-outline': vm.search.has_state_data,
+						'ion-android-checkbox-outline-blank': !vm.search.has_state_data
+					}"></i>
+					<span>estatales</span>
+				</span>
+				<span
+					class="exp-busqueda-link"
+					ng-click="vm.search.has_mun_data = !vm.search.has_mun_data">
+					<i ng-class="{
+						'ion-android-checkbox-outline': vm.search.has_mun_data,
+						'ion-android-checkbox-outline-blank': !vm.search.has_mun_data
+					}"></i>
+					<span>municipales</span>
+				</span>
+			</div>
+			<div>
+				<span class="exp-busqueda-section-top">
+					<span>entre fechas</span>
+				</span>
+				<rzslider class="custom-slider"
+					rz-slider-model="vm.search.years.from"
+				   	rz-slider-high="vm.search.years.to"
+					rz-slider-options="vm.SLIDER_DATE_OPTIONS">
+				</rzslider>
+			</div>
+			<div class="center">
+				<button ng-click="vm.buscar()">Buscar</button>
+			</div>
+		</div>
+		<div class="nine columns" ng-if="vm.search.httpStatus == 0 && vm.search.resultados.length > 0">
+			<div class="row exp-resultado" ng-class="{'exp-odd': $odd}" ng-repeat="r in vm.search.resultados
+			| limitTo: vm.pagination.items_per_page :
+			vm.pagination.current_page * vm.pagination.items_per_page
+			track by $index">
+				<div class="one column">
+					<span class="exp-rank" ng-bind="$index + 1 +
+					vm.pagination.current_page * vm.pagination.items_per_page">
+					</span>
+				</div>
+				<div class="eleven columns">
+					<a ng-href="/#/datasets/{{r.id}}"
+						ng-bind="r.nombre + ', ' + vm.formatFecha(r.fecha)"></a>
+					<br/>
+					<a ng-href="/#/estadisticas/{{r.estadistica_id}}">
+						<span ng-bind="r.estadistica"></span>
+					</a>
+					<div class="row exp-footer">
+						<div class="four columns">
+							de: <a ng-href="/#/fuentes/{{r.fuente_id}}"
+								ng-bind="r.fuente"></a>
+						</div>
+						<div class="four columns">
+							por: <span ng-bind="r.contribuidor"></span>
+						</div>
+						<div class="four columns">
+							subido: <span ng-bind="vm.formatFecha(r.fecha_upload)"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<pagination-view pagination="vm.pagination"></pagination-view>
+		</div>
+		<div class="nine columns" ng-if="vm.search.httpStatus == 0 && vm.search.resultados.length == 0">
+			No se encontró ningún resultado...
+		</div>
+	</div>
+</div>
+
+<!-- Menu superior
 <div id="mid-banner">
 	<div class="container">
 		<span id="mid-banner-desc">
@@ -49,7 +143,7 @@
 	</div>
 </div>
 
-<!-- Búsqueda -->
+<!-- Búsqueda
 <div class="container" ng-if="vm.display == 'results' || vm.display == 'lists'">
 	<input ng-if="!vm.selected_dataset"
 		type="text" style="width:100%; margin-top:20px;"
@@ -57,7 +151,7 @@
 		ng-model="vm.filter" ng-keydown="vm.filterKeypress($event)"/>
 </div>
 
-<!-- Resultados -->
+<!-- Resultados
 <div class="container" ng-if="vm.display == 'results'">
 	<div ng-repeat="estadistica in vm.results | filter: vm.filter"
 		ng-click="vm.set(estadistica, 'estadistica', 'datasets');"
@@ -67,7 +161,7 @@
 	</div>
 </div>
 
-<!-- Main container -->
+<!-- Main container
 <div class="container" ng-if="vm.display == 'lists'">
 
 	<div ng-repeat="grupo in vm.grupos | filter: vm.filter | orderBy: 'nombre'
@@ -152,4 +246,4 @@
 	pagination="vm.pagination">
 </pagination-view>
 
-<div style="margin-top:40px;"></div>
+<div style="margin-top:40px;"></div>-->

@@ -6,7 +6,7 @@ module.exports.makeSelect = function(query) {
 	let joins = [];
 
 	// Estados
-	if(query.estados) {
+	if(query.nombreEstados) {
 		sql.push(", estados.nombre AS estado");
 		joins.push("JOIN estados ON estados.id = municipios.estado_id");
 	} else {

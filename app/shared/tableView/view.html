@@ -1,0 +1,55 @@
+<div id="table-view-options" ng-if="vm.table.has_mun_data">
+	Ver:
+	<span
+		class="respuesta-meta-link"
+		ng-class="{
+			'respuesta-meta-link-nonactive': vm.view != 'estados',
+			'respuesta-meta-link-active': vm.view == 'estados'}"
+		ng-click="vm.setView('estados')">estados</span>
+	<span
+		class="respuesta-meta-link"
+		ng-class="{
+			'respuesta-meta-link-nonactive': vm.view != 'municipios',
+			'respuesta-meta-link-active': vm.view == 'municipios'}"
+		ng-click="vm.setView('municipios')">municipios</span>
+</div>
+
+<div class="row" ng-if="vm.table.data[vm.view][0].length == 3">
+	<div class="four columns no-spacing" ng-repeat="col in vm.three_columns">
+		<table id="table-view-tabla">
+			<tr
+				ng-class="{
+					'table-view-odd':
+					($odd && (col % 2) == 0) || (!$odd && (col % 2) == 1)
+				}"
+				ng-repeat="row in vm.table.data[vm.view]
+				| orderBy:vm.sortFunc:vm.sort.reverse
+				| limitTo: (vm.pagination.items_per_page / 3) :
+				vm.pagination.current_page * vm.pagination.items_per_page + col
+				track by $index">
+				<td class="no-spacing">
+					<div class="table-view-celda">
+						<span class="respuesta-btn-circulo" ng-bind="$index + 1 +
+						vm.pagination.current_page*vm.pagination.items_per_page
+						+ col"></span>
+						<span
+							ng-click="vm.setView(row[0])" ng-bind="row[1]"
+							ng-class="{
+								'table-view-link': (vm.view == 'estados' && vm.table.has_mun_data)
+							}">
+						</span>
+					</div>
+				</td>
+				<td class="no-spacing">
+					<div class="table-view-celda">
+						<span ng-bind="row[2].toLocaleString()"></span>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<pagination-view
+	pagination="vm.pagination">
+</pagination-view>

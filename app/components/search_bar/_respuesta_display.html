@@ -1,0 +1,13 @@
+<div id="respuesta-display">
+	<span ng-bind-html="vm.respuesta"></span>
+	<div id="respuesta-display-info">
+		Estadística:
+		<a ng-href="/#/estadisticas/{{vm.estadistica.id}}">
+			<span ng-bind="vm.estadistica.nombre"></span>
+		</a>
+		&nbsp; Dataset:
+		<a ng-href="/#/datasets/{{vm.dataset.id}}">
+			<span ng-bind="vm.dataset.fuente + ', ' + vm.formatFecha(vm.dataset.fecha)"></span>
+		</a>
+	</div>
+</div>

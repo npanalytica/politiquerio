@@ -11,6 +11,7 @@ function Cache() {
 	this.data = null;
 	// Initialize the connection
 	this.init = function() {
+		let d = Q.defer();
 		var self = this;
 		connection.acquire(function(err, con) {
 			let pEdos = Estados.get(con, null, {}).then((q) => {
@@ -36,10 +37,13 @@ function Cache() {
 					estadisticas: stats,
 					cuentas: res[3]
 				}
+				d.resolve();
 			}).catch((err) => {
+				d.reject(err);
 				console.log(err);
 			});
 		});
+		return d.promise;
 	};
 }
 

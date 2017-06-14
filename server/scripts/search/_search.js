@@ -1,44 +1,28 @@
-const _ = require('underscore');
 const Q = require('q');
-const DB = require('./../../dbhelpers');
-const Matchers = require('./matchers');
-const Queries = require('./queries');
-const Guesses = require('./guesses');
 
-const MINSCORE = 0.95;
-const N_RES = 5;
+let cache = require('./../../cache');
 
-module.exports = function(con, string) {
+const generarQuery = require('./query/_generar');
+const setDataset = require('./database/set_dataset');
+const responder = require('./respuestas/_responder');
+
+const N_ESTADISTICAS = 5;
+
+module.exports = function(con, search) {
 	let d = Q.defer();
-
-	string = string.replace(/\,/g, '');
-
-	let estados = Matchers.matchGeo(string, 'estados');
-	let municipios = Matchers.matchGeo(string, 'municipios');
-	let estadisticas = Matchers.matchEstadisticas(string, 10);
-	let type = Guesses.guessType(estados, municipios);
-	Q.fcall(Queries.getBestSources, con, estadisticas, type).then((fuentes) => {
-		let d2 = Q.defer();
-		let promises = [];
-		for(var i = 0; i < estadisticas.length; i++) {
-			promises.push(Queries.loadHistory(con, type, fuentes[i].id,
-				estadisticas[i].id, estados, municipios));
-		}
-		Q.all(promises).then((res) => {
-			let data = _.filter(res, (d) => { return d.length > 0 });
-			let geo = null;
-			if(type == 'estatal') { geo = estados } else
-			if(type == 'municipal') { geo = municipios }
-			d2.resolve({type: type, data: data, geo: geo});
+	let query = generarQuery(search);
+	if(query.estadisticas.length == 0) {
+		d.reject(404);
+	} else {
+		setDataset(con, query).then((query) => {
+			responder(query);
+			return Q(query);
+		}).then((query) => {
+			query.estadisticas = query.estadisticas.splice(1, N_ESTADISTICAS + 1);
+			d.resolve(query);
 		}).catch((err) => {
-			d2.reject(err);
+			d.reject(err);
 		});
-		return d2.promise;
-	}).then((data) => {
-		d.resolve(data);
-	}).catch((err) => {
-		d.reject(err);
-	});
-
+	}
 	return d.promise;
 }

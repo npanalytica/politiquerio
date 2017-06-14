@@ -1,0 +1,17 @@
+<div id="respuesta-meta">
+	Ver:
+	<span ng-repeat="link in vm.links"
+		class="respuesta-meta-link"
+		ng-class="{
+			'respuesta-meta-link-nonactive': vm.display != link,
+			'respuesta-meta-link-active': vm.display == link}"
+		ng-click="vm.setDisplay(link)" ng-bind="link"></span>
+	<div id="respuesta-meta-others">
+		Otras estadísticas:
+		<span ng-repeat="estadistica in vm.estadisticas">
+			<a ng-href="/#/estadisticas/{{estadistica.id}}">
+				<span ng-bind="estadistica.nombre"></span>
+			</a><span ng-if="!$last">|</span>
+		</span>
+	</div>
+</div>

@@ -37,16 +37,11 @@ div.tooltip {
     pointer-events: none;
 }
 
-.mapa-invisible {
-	height: 0px;
-	transition: height 0.2s;
-}
-
 .mapa {
-	padding: 10px;
-	//background: #e1e1e1;
+	padding-top:10px;
+	padding-left: 10px;
+	background-color: #ccdef2;
 	height: 612px;
-	transition: height 0.2s;
 }
 
 .estado {

@@ -3,6 +3,7 @@ module.exports = {
 		require('./datasets').configure(app);
 		require('./estadisticas').configure(app);
 		require('./estados').configure(app);
+		require('./fuentes').configure(app);
 		require('./municipios').configure(app);
 		require('./meta').configure(app);
 		require('./grupos').configure(app);

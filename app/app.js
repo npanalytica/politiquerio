@@ -1,5 +1,7 @@
 var app = angular.module('app', [
 	'contenteditable',
+	'duScroll',
 	'ngRoute',
-	'ngSanitize'
+	'ngSanitize',
+	'rzModule'
 ]);

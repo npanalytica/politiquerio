@@ -4,7 +4,8 @@
  */
 
 angular.module('app').controller('ApiV1Controller', [
-'Rest', function(Rest) {
+'Rest', '$document',
+function(Rest, $document) {
 
 	var self = this;
 
@@ -14,11 +15,5 @@ angular.module('app').controller('ApiV1Controller', [
 	Rest.add('/static/json/apiv1.json').load(function(err, res) {
 		self.api = res[0];
 	});
-
-	self.runRequest = function(request) {
-		Rest.add('/apiv1/' + request.url).load(function(err, result) {
-			request.$$result = result[0];
-		});
-	}
 
 }]);

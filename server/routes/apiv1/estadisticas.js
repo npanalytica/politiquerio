@@ -8,7 +8,7 @@ module.exports = {
 	configure: function(app) {
 
 		/** @desc - regresa los datasets atados a la estadistica **/
-		app.get("/apiv1/estadisticas/:id?", function(req, res) {
+		app.get("/apiv1/estadisticas/:id", function(req, res) {
 			req.query = req.query || {};
 			DB.respond(res, Estadisticas.get, [req.params.id, req.query]);
 		});

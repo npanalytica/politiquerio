@@ -1,36 +1,67 @@
 @import "colors";
 
+$footer-height: 200px;
+$footer-margin: 10px;
+
 #footer {
+
+	height: $footer-height;
 	background-color: $color-hard;
 	color: #fff;
 	border-top: 1px solid $color-superlight;
 	margin-top: 10px;
-	padding: 10px;
-	bottom: 0;
 	font-size: 12pt;
 	width: 100%;
-	height: 60px;
-	box-sizing: border-box;
+	bottom: 0;
 }
 
-#footer-logo {
-	display: block;
-	float: left;
-	margin-top: 5px;
-	margin-right: 10px;
-	height: 17px;
+#footer > .container {
+	position: relative;
+	padding: 30px;
+	height: 100%;
 }
+
+#footer-bottom {
+	color: #6b6f77;
+	font-size: 10pt;
+	position: absolute;
+	bottom: 0;
+	padding: 5px;
+	width: 100%;
+	text-align: center;
+}
+
+.footer-title {
+	color: #fff;
+	display: block;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid;
+}
+
+.border-primary {border-color: $color-primary; }
+.border-secondary { border-color: $color-secondary; }
+
+.border-1 {border-color: #9cec5b; }
+.border-2 { border-color: #f06543; }
 
 .footer-link {
-	color: $color-superlight;
-	padding-right: 10px;
-	padding-left: 10px;
-}
-
-.footer-link > i {
-	margin-right: 2px;
+	 color: #fff;
+	 font-size: 11pt;
+	 display: block;
+	 margin-top: 5px;
 }
 
 .footer-link:hover {
+	color: $color-primary;
+}
+
+.footer-social {
+	color: #fff;
+	font-size: 16pt;
+	margin-right: 10px;
+}
+
+.footer-social:hover {
 	color: $color-primary;
 }

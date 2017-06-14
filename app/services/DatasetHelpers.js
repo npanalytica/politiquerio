@@ -4,71 +4,55 @@
 **/
 
 angular.module('app').service('DatasetHelpers', [
-'Static',
-function(Static) {
+'Helpers', 'Static', 'Entidades', 'ChartHelpers',
+function(Helpers, Static, Entidades, ChartHelpers) {
 
-	/** @desc: Regresa el valor numérico obtenido de aplicar el árbol binario
-		@param {obj} node (obtenido de math.parse() -> math.js) a los valores de
-		@param {arr} row (la fila de una tabla). */
-
-	function traverseNode(node, row) {
-		var values = [];
-		for(var i = 0; i < 2; i++) {
-			var arg = node.args[i];
-			if(arg.valueType == 'number') {
-				values.push(node.args[i]);
-			} else if (arg.hasOwnProperty('name')) {
-				values.push(row[Static.letras.indexOf(arg.name) + 1]);
-			} else if(arg.hasOwnProperty('content')) {
-				values.push(traverseNode(arg.content, row));
-			}
-		}
-		switch(node.fn) {
-			case 'add': return values[0] + values[1]; break;
-			case 'subtract': return values[0] - values[1]; break;
-			case 'multiply': return values[0] * values[1]; break;
-			case 'divide': return values[0] / values[1]; break;
-			case 'pow': return Math.pow(values[0], values[1]); break;
-		}
-	}
-
-	function makeRows(datasets, geo, tipo) {
+	function makeRows(_datasets, tipo) {
 		var rows = [];
-		for(id in geo) {
-			var row = [id, geo[id].nombre];
-			for(var i = 0; i < datasets.length; i++) {
-				var ds = datasets[i][tipo + '_dict'];
-				if(ds) {
-					var entrada = ds[id];
-					var valor = entrada ? entrada.valor : null;
-					row.push(valor);
-				}
+		var dict = tipo == 'estatal' ?
+			Entidades.estados_dict : Entidades.municipios_dict;
+		var prop = tipo == 'estatal' ? 'estatal_dict' : 'municipal_dict';
+		for(id in dict) {
+			var nombre = dict[id].nombre;
+			if(tipo == 'municipal')
+				nombre += ', ' + Entidades.estados_dict[dict[id].estado_id].nombre;
+			var row = [id, nombre];
+			for(var i = 0; i < _datasets.length; i++) {
+				var entrada = _datasets[i][prop][id];
+				var valor = entrada ? entrada.valor : null;
+				row.push(valor);
 			}
 			rows.push(row)
 		}
 		return rows;
 	}
 
+	function makeDictionaries(_datasets) {
+		for(var i = 0; i < _datasets.length; i++) {
+			if(!_datasets[i].estatal_dict) {
+				_datasets[i].estatal_dict
+					= Helpers.dictionarify(_datasets[i].estatal,
+						'estado_id');
+				_datasets[i].municipal_dict
+					= Helpers.dictionarify(_datasets[i].municipal,
+						'municipio_id');
+			}
+		}
+	}
+
 	return {
 
-		makeDataset: function(_datos) {
-			var data = _.sortBy(_datos, function(d) {
-				return parseInt(d.fecha.substring(0,4));
-			})
-			var labels = _.map(_.pluck(_datos, 'fecha'), function(f) { return f.substring(0,4) });
-			var data = _.pluck(data, 'valor');
-			return {labels: labels, data: data};
-		},
-
-		makeTable: function(_datasets, estados, municipios) {
-			var estatal = makeRows(_datasets, estados, 'estatal');
-			var municipal = makeRows(_datasets, municipios, 'municipal');
+		toTable: function(_datasets) {
+			makeDictionaries(_datasets);
+			var estatal = makeRows(_datasets, 'estatal');
+			var municipal = makeRows(_datasets, 'municipal');
 			var headers = _.pluck(_datasets, 'nombre');
 			headers = ['id', 'entidad'].concat(headers);
 			var data = _.groupBy(municipal, function(m) {
 				return Math.floor(m[0] / 1000);
 			});
-			data[0] = estatal;
+			data.estados = estatal;
+			data.municipios = municipal;
 			return {
 				headers: headers,
 				data: data,
@@ -78,60 +62,37 @@ function(Static) {
 			}
 		},
 
-		makeRArrays: function(rows, a, b) {
-			var data = [];
-			for(var i = 0; i < rows.length; i++) {
-				data.push({
-					label: rows[i][0],
-					r: 4,
-					x: rows[i][a],
-					y: rows[i][b]
-				})
-			}
-			return data;
-		},
-
-		extractColumn: function(_rows, index) {
-			var col = [];
-			for(var i = 0; i < _rows.length; i++) {
-				col.push(_rows[i][index]);
-			}
-			return col;
-		},
-
-		toMap: function(table, index) {
-			var self = this;
+		toMap: function(_dataset) {
 			var table_data = {};
-			for(i in table.data) {
-				for(var j = 0; j < table.data[i].length; j++) {
-					var id = table.data[i][j][0];
-					var value = table.data[i][j][index];
-					table_data[id] = value;
-				}
+			for(var i = 0; i < _dataset.estatal.length; i++) {
+				var entrada = _dataset.estatal[i];
+				table_data[entrada.estado_id] = entrada.valor;
+			}
+			for(var i = 0; i < _dataset.municipal.length; i++) {
+				var entrada = _dataset.municipal[i];
+				table_data[entrada.municipio_id] = entrada.valor;
 			}
 			return table_data;
 		},
 
-		toMap2: function(ds_estatal, ds_municipal) {
-			var ds = {};
-			for(var i = 0; i < ds_estatal.length; i++) {
-				ds[ds_estatal[i].estado_id] = ds_estatal[i].valor;
-			}
-			for(var i = 0; i < ds_municipal.length; i++) {
-				ds[ds_municipal[i].municipio_id] = ds_municipal[i].valor;
-			}
-			return ds;
-		},
+		toLineChart: function(_datasets) {
+			var datasets = _.sortBy(_datasets, 'fecha');
+			makeDictionaries(datasets);
+			var labels = [];
+			var datasets = [];
 
-		/** @param {obj} _custom -> obtenido de @generateCustomColMeta(), en
-		 	_dataset_custom_column */
-		appendCustomColumn: function(table, _custom) {
-			for(var i = 0; i < table.rows.length; i++) {
-				var new_val = traverseNode(_custom.node, table.rows[i]);
-				table.rows[i].push(new_val);
+			var data = [];
+			for(var j = 0; j < _datasets.length; j++) {
+				labels.push(_datasets[j].fecha.substring(0,4));
+				var entrada = _datasets[j].nacional[0];
+				var valor = entrada ? entrada.valor : null;
+				data.push(valor);
 			}
-			table.headers.push(_custom.name);
+			datasets.push(ChartHelpers.makeDataset('nacional', data));
+			return {
+				labels: labels,
+				datasets: datasets
+			}
 		}
-
 	}
 }]);

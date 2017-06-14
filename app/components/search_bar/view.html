@@ -1,7 +1,66 @@
 <input id="landing-explore-input" ng-model="vm.search.text"
 	ng-keydown="vm.updateSearch($event)"
-	type="text" placeholder="Suicidios en Guadalajara, Jalisco..."/>
+	type="text" placeholder="¿Qué quieres saber?"/>
 
+<div ng-if="vm.search.status == 0">
+
+	<respuesta-display
+		ng-if="vm.display == 'respuesta'"
+		ideas="vm.resultado.ideas"
+		dataset="vm.resultado.dataset"
+		estadistica="vm.resultado.mejor_estadistica"
+		estados="vm.resultado.estados"
+		municipios="vm.resultado.municipios">
+	</respuesta-display>
+
+	<table-view
+		ng-if="vm.display == 'tabla'"
+		view="estados"
+		table="vm.table">
+	</table-view>
+
+	<mexico-map
+		ng-if="vm.display == 'mapa'"
+		dataset="vm.map"
+		width="960">
+	</mexico-map>
+
+	<line-chart
+		style="margin-top:10px;"
+		ng-if="vm.display == 'histórico'"
+		type="line"
+		labels="vm.chart.labels"
+		datasets="vm.chart.datasets"
+		height="500"
+		width="960">
+	</line-chart>
+
+	<respuesta-meta
+		estadisticas="vm.resultado.estadisticas"
+		fecha="vm.resultado.fecha"
+		display="vm.display"
+		dataset="vm.resultado.dataset">
+	</respuesta-meta>
+</div>
+
+<div ng-if="vm.search.status == 2">
+	Buscando...
+</div>
+
+<div ng-if="vm.search.status == 1">
+	<div id="respuesta-display">
+		Politiquer.io no pudo responder tu pregunta... :(
+	</div>
+</div>
+
+<!--
+<div ng-if="vm.resultado"
+
+
+</div>-->
+
+
+<!--
 <http-loader http-status="vm.search.status"></http-loader>
 
 <div ng-if="vm.result">
@@ -80,3 +139,4 @@
 	</div>
 
 </div>
+-->

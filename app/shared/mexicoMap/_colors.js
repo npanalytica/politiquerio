@@ -9,11 +9,13 @@ function() {
 		x = x.toString(16);
 		return (x.length == 1) ? '0' + x : x;
 	};
+	/*GOOD:
 
+	*/
 	return {
-		empty : 'e1e1e1', // Color para cuando no hay datos
+		empty : '777', // Color para cuando no hay datos
 		max	  : '4679b2', // Color para el valor máximo
-		min	  : 'e1e1e1', // Color para el valor mínimo
+		min	  : 'f6f1d1', // Color para el valor mínimo
 		gradient: function(ratio, color1, color2) {
 			var r = Math.ceil(parseInt(color1.substring(0,2), 16) * ratio +
 				parseInt(color2.substring(0,2), 16) * (1-ratio));

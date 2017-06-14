@@ -9,6 +9,7 @@
 @import "pagination";
 @import "positioning";
 @import "search_bar";
+@import "slider";
 @import "top_nav";
 @import "typography";
 
@@ -26,11 +27,17 @@ body {
 	height: 100%;
 	margin: 0px;
 	padding: 0px;
+	padding-bottom: $footer-height + $footer-margin + 1;
+	box-sizing: border-box;
 	font-family: 'Oxygen';
 }
 
 #ng-view {
 	min-height:100%;
+}
+
+.naked-container {
+	padding-top: 10px;
 }
 
 a {

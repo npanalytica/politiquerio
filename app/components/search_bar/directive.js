@@ -7,7 +7,9 @@
 angular.module('app').directive('searchBar', function() {
 	return {
 		restrict: 'E',
-		scope: {},
+		scope: {
+			preQuery: '=',
+		},
 		controller: 'SearchBarController',
 		controllerAs: 'vm',
 		bindToController: true,

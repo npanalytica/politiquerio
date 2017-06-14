@@ -1,0 +1,43 @@
+@import "colors";
+
+.custom-slider.rzslider .rz-bar {
+  background: $color-light;
+  height: 2px;
+}
+.custom-slider.rzslider .rz-selection {
+  background: $color-primary;
+}
+
+.custom-slider.rzslider .rz-pointer {
+  width: 4px;
+  height: 4px;
+  border: 3px solid $color-primary;
+  top: auto; /* to remove the default positioning */
+  bottom: -2px;
+  background-color: #fff;
+}
+
+.custom-slider.rzslider .rz-pointer:after {
+  display: none;
+}
+
+.custom-slider.rzslider .rz-bubble {
+  bottom: 14px;
+}
+
+.custom-slider.rzslider .rz-limit {
+  color: $color-soft;
+}
+
+.custom-slider.rzslider .rz-tick {
+  width: 1px;
+  height: 10px;
+  margin-left: 4px;
+  border-radius: 0;
+  background: #ffe4d1;
+  top: -1px;
+}
+
+.custom-slider.rzslider .rz-tick.rz-selected {
+  background: orange;
+}

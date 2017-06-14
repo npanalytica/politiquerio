@@ -1,11 +1,11 @@
-<div class="center">
+<div class="center" style="margin-top:10px;">
 	<span class="pagination-btn" ng-click="pagination.prevPage()">
 		<i class="ion-arrow-left-b"></i>
 	</span><span class="pagination-btn"
-		ng-class="{'pagination-btn-selected': $index == pagination.current_page}"
-		ng-click="pagination.current_page = $index;"
+		ng-class="{'pagination-btn-selected': page == pagination.current_page}"
+		ng-click="pagination.current_page = page;"
 		ng-repeat="page in pagination.pages track by $index">
-		<span ng-bind="$index + 1"></span>
+		<span ng-bind="page + 1"></span>
 	</span><span class="pagination-btn" ng-click="pagination.nextPage()">
 		<i class="ion-arrow-right-b"></i>
 	</span>

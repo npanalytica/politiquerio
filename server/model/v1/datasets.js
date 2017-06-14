@@ -1,13 +1,17 @@
+const _ = require('underscore');
 const DB = require('./../../dbhelpers');
 const Q = require('q');
 
 const DatosNacionales = require('./datos_nacionales');
 const DatosEstatales = require('./datos_estatales');
 const DatosMunicipales = require('./datos_municipales');
+const cache = require('./../../cache');
+const generar_tokens = require('./../../scripts/search/query/generarTokens');
+const set_estadisticas = require('./../../scripts/search/query/set_estadisticas');
 
 module.exports.makeSelect = function(query) {
 	let sql = ["SELECT datasets.id, datasets.nombre, datasets.fecha, \
-	datasets.fecha_upload, datasets.notas, datasets.limpia, \
+	datasets.fecha_upload, datasets.notas, datasets.confianza, \
 	datasets.fuente_id, datasets.contribuidor_id, datasets.estadistica_id"];
 
 	let joins = [];
@@ -47,6 +51,49 @@ module.exports.makeSelect = function(query) {
 	sql.push("WHERE TRUE");
 
 	return sql;
+}
+
+module.exports.search = function(con, query) {
+	let d = Q.defer();
+
+	if(query.years.from > query.years.to) {
+		query.years.from = query.years.to;
+	} else if (query.years.to == query.years.from) {
+		query.years.to = query.years.to + 1;
+	}
+
+	let sql = module.exports.makeSelect({
+		nombreFuentes: true,
+		nombreEstadistica: true,
+		nombreContribuidor: true,
+		numeros: true
+	});
+	query.tokens = generar_tokens(query.text);
+	set_estadisticas(query);
+	let ids = _.pluck(query.estadisticas, 'id');
+	if(ids.length == 0) {
+		d.resolve([]);
+	} else {
+		sql.push('AND datasets.estadistica_id IN (' + DB.makeQMarks(ids) + ')');
+		sql.push('AND datasets.fecha >= ? AND datasets.fecha <= ?');
+		let params = ids.concat([query.years.from + '', query.years.to + '']);
+
+		DB.execute(con, sql.join(' '), params).then((res) => {
+			let e_ids = _.pluck(query.estadisticas, 'id');
+			let datasets = _.sortBy(res, (r) => { return e_ids.indexOf(r.estadistica_id) });
+			if(query.has_national_data)
+				datasets = _.filter(res, (r) => { return r.n_nacionales > 0 });
+			if(query.has_state_data)
+				datasets = _.filter(res, (r) => { return r.n_estatales > 0 });
+			if(query.has_mun_data)
+				datasets = _.filter(res, (r) => { return r.n_municipales > 0 });
+			d.resolve(datasets);
+		}).catch((err) => {
+			d.reject(err);
+		});
+	}
+
+	return d.promise;
 }
 
 module.exports.get = function(con, id, query) {
@@ -99,4 +146,21 @@ module.exports.getMunicipales = function(con, id, query) {
 		params = params.concat(estados);
 	}
 	return DB.execute(con, sql.join(' '), params);
+}
+
+module.exports.getDatos = function(con, id, query) {
+	let d = Q.defer();
+	let n = this.getNacionales(con, id, query).then((r) => {return Q(r)});
+	let e = this.getEstatales(con, id, query).then((r) => {return Q(r)});
+	let m = this.getMunicipales(con, id, query).then((r) => {return Q(r)});
+	Q.all([n,e,m]).then((res) => {
+		d.resolve({
+			nacional: res[0],
+			estatal: res[1],
+			municipal: res[2]
+		});
+	}).catch((err) => {
+		d.reject(err);
+	});
+	return d.promise;
 }

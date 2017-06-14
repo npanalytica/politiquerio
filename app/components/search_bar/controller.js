@@ -5,40 +5,40 @@
 **/
 
 angular.module('app').controller('SearchBarController', [
-'Rest', 'DatasetHelpers', '$timeout', 'Search',
-function(Rest, Dataset, $timeout, Search) {
+'$scope', 'Rest', 'Helpers', 'DatasetHelpers', '$timeout', 'Search',
+'Entidades', 'ChartHelpers',
+function($scope, Rest, Helpers, Dataset, $timeout, Search, Entidades, ChartHelpers) {
 	var self = this;
 
 	self.search = {
 		text: '',
-		status: 0,
-		result: null
+		status: 3
 	}
 
-	self.chart_type = 'line';
-
-	self.setEstadistica = function(result) {
-		self.result = result;
-	}
-
-	self.setMapDataset = function() {
-		var dataset_id = self.result.datasets_con_estados
-		[self.result.datasets_con_estados.length - 1].id;
-		Rest.add('/apiv1/datasets/' + dataset_id + '/estatal/')
-		.add('/apiv1/datasets/' + dataset_id + '/municipal/')
-		.load(function(err, res) {
-			self.map_dataset = Dataset.toMap2(res[0], res[1]);
-			self.chart_type = 'map';
-		});
-	}
+	$scope.$watch(function() {
+		return self.preQuery;
+	}, function(_prequery) {
+		if(!_prequery) return;
+		self.search.text = _prequery;
+		self.updateSearch({keyCode: 13});
+	})
 
 	self.updateSearch = function($e) {
 		if($e.keyCode != 13) return;
-		//self.search.status = 2;
+		if(self.search.text.length == 0) return;
+		self.search.status = 2;
 		Search.search(self.search.text, function(err, data) {
-			self.result = data[0];
-			self.results = data;
-			self.chart_type = 'line';
+			if(err) {
+				self.search.status = 1;
+			} else {
+				self.resultado = data[0];
+				self.display = 'respuesta';
+				self.table = Dataset.toTable([self.resultado.dataset]);
+				self.map = Dataset.toMap(self.resultado.dataset);
+				self.chart = Dataset.toLineChart(self.resultado.datasets);
+				self.search.status = 0;
+			}
+
 		});
 	}
 

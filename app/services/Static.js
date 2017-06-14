@@ -15,7 +15,7 @@ angular.module('app').service('Static', [function(){
 			'#745574', //Mint purple
 			'#653c65', //Dark mint purple
 			'#a4d4ff', //Super light blue
-			'#283845', // Gray blue
+			'#283845', //Gray blue
 			'#333333', //Gray
 		],
 		light_colors: [
@@ -35,6 +35,13 @@ angular.module('app').service('Static', [function(){
 			'#Beeeff', //Super light blue
 			'#42525f', // Gray blue
 			'#4d4d4d', //Gray
+		],
+		niveles_seguridad: [
+			{texto: 'Sin clasificación', 	color: '#42525f'},
+			{texto: 'Baja', 				color: '#c97b84'},
+			{texto: 'Mediana', 				color: '#b09048'},
+			{texto: 'Alta', 				color: '#2c7348'},
+			{texto: 'Oficiales', 			color: '#4679B2'},
 		],
 		meses: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio',
 			'Agosto', 'Septiemre', 'Octubre', 'Noviembre', 'Diciembre'],

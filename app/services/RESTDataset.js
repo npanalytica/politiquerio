@@ -22,5 +22,18 @@ function(Rest, Helpers) {
 				}
 			})
 		},
+		search: function(obj, pagination) {
+			obj.httpStatus = 2;
+			Rest.add('/apiv1/datasets/search', 'post', obj)
+			.load(function(err, res) {
+				if(err) {
+					obj.httpStatus = 1;
+				} else {
+					obj.httpStatus = 0;
+					obj.resultados = res[0];
+					if(pagination) pagination.update(res[0].length);
+				}
+			});
+		}
 	}
 }]);

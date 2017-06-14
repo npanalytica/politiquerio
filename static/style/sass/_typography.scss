@@ -1,5 +1,9 @@
 @import "colors";
 
+.font-primary {
+	color: $color-primary;
+}
+
 .font-secondary {
 	color: $color-secondary;
 }
@@ -15,4 +19,9 @@
 
 .link:hover {
 	color: $color-primary;
+}
+
+.font-afterthought {
+	color: $color-soft;
+	font-size: 10pt;
 }

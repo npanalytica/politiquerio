@@ -13,6 +13,13 @@ module.exports.makeSelect = function(query) {
 	return sql;
 }
 
+module.exports.get = function(con, id, query) {
+	let d = Q.defer();
+	let sql = module.exports.makeSelect(query);
+	if(id) sql.push("AND fuentes.id = ?");
+	return DB.execute(con, sql.join(' '), [id]);
+}
+
 module.exports.getHistory = function(con, type, id, stat_id, query) {
 	let d = Q.defer();
 	query.nombreFuentes = true;
@@ -33,10 +40,6 @@ module.exports.getHistory = function(con, type, id, stat_id, query) {
 	Q.all([pDatasets, pData]).then((res) => {
 		let ds_data = _.groupBy(res[1], 'dataset_id');
 		let datasets = res[0];
-		/*if(type != 'nacional') {
-			let fk = type == 'estatal' ? 'estado_id' : 'municipio_id';
-			for(key in ds_data) ds_data[key] = _.groupBy(ds_data[key], fk);
-		}*/
 
 		let history = [];
 		for(let i = 0; i < datasets.length; i++) {

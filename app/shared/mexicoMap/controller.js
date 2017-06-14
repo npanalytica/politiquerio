@@ -13,17 +13,13 @@ function($scope, $timeout, Rest, Helpers, Draw) {
 
 	var container_id = "#pol_mexico_map_container";
 
-	self.initialized = false;
-	$timeout(function () {
-		self.initialized = true;
-	}, 0.1);
 
 	Rest.add('/static/geojson/estados.json')
 	.add('/static/geojson/municipios.json')
 	.load(function(err, res) {
 		if(!err) {
 			Draw.setGeoJson(res[0], res[1]);
-			if(Draw.DATASETS && self.DATASET) {
+			if(Draw.DATASET) {
 				Draw.mexico(container_id, self.width);
 				self.initialized = true;
 			}

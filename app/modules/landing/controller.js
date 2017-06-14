@@ -4,10 +4,12 @@
  */
 
 angular.module('app').controller('LandingController', [
-'Rest', function(Rest) {
+'$routeParams', 'Rest',
+function($routeParams, Rest) {
 	var self = this;
-
+	self.preQuery = $routeParams.prequery;
 	self.cuentas = {estadisticas: '???', datasets: '???', datos: '???'};
+
 
 	Rest.add('/apiv1/meta/cuentas/').load(function(err, res) {
 		if(!err) {

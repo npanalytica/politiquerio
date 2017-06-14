@@ -4,13 +4,15 @@
 	cursor: pointer;
 	display: inline-block;
 	color: $color-font-dark;
-	width: 30px;
-	height: 30px;
-	box-sizing: border-box;
+	width: 26px;
+	height: 26px;
 	padding-top: 2px;
-	border: 1px solid #fff;
+	border-radius: 26px;
+	font-size: 10pt;
+	box-sizing: border-box;
 }
 
 .pagination-btn-selected {
-	border-color: $color-primary;
+	background-color: $color-primary;
+	color: #fff;
 }

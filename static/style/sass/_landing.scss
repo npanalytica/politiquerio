@@ -4,7 +4,7 @@
 	margin-top: 20px;
 	background-color: $color-primary;
 	color: #fff;
-	padding: 30px;
+	padding: 40px;
 	width: 100%;
 	box-sizing: border-box;
 }
@@ -43,16 +43,38 @@
 	margin-top: 20px;
 }
 
-.website-contact {
-	padding: 10px;
-	display: block;
-	background-color: $color-hard;
+#website-help-title {
+	width: 100%;
+	border-top: 1px solid $color-light;
+	padding-top: 15px;
+	margin-top: 15px;
+	margin-bottom: 20px;
+	font-size: 16pt;
+	color: $color-hard;
+	text-align: center;
 }
 
-.website-notes-title {
-	font-size: 16pt;
+.website-help {
+	cursor: pointer;
+	background-color: #fff;
+	color: $color-soft;
+	text-align: center;
+}
+
+.website-help:hover {
+	color: $color-soft !important;
+}
+
+.website-help-icon {
 	display: block;
-	margin-top: 10px;
-	margin-bottom: 10px;
+	text-align: center;
+	background-color: #fff;
 	color: $color-primary;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid $color-light;
+}
+
+.website-help-icon > i {
+	font-size: 40pt;
 }

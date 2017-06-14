@@ -8,7 +8,9 @@ angular.module('app').service('ChartHelpers', [
 function(Static) {
 	return {
 		makeDataset: function(label, data, color) {
-			if(!isNaN(color)) {
+			if(!color) {
+				color = Static.colors[0];
+			} else if (!isNaN(color)) {
 				color = Static.colors[color % Static.colors.length];
 			}
 			return {

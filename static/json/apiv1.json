@@ -1,35 +1,424 @@
 [
 	{
 		"name": "Estados",
-		"description": "Los estados de la república (¡treinta y un estados, y un distrito federal!)",
+		"description": "Los estados de México",
 		"requests": [
 			{
 				"method": "GET",
-				"url": "estados/",
-				"description": "Regresa los estados de México",
-				"parameters": []
+				"url": "estados",
+				"description": "Obtiene los estados de México",
+				"parameters": [],
+				"opciones": [
+					{
+						"r": "municipios=",
+						"default": "false",
+						"type": "bool",
+						"description": "Obtiene los municipios anidados en cada estado"
+					}
+				]
 			},
 			{
 				"method": "GET",
-				"url": "estados/:id/",
-				"description": "Regresa el estado con @id=:id",
+				"url": "estados/:id",
+				"description": "Obtiene el estado a partir de su id",
 				"parameters": [
 					{
 						"r": ":id",
 						"type": "int",
+						"valores": "-",
 						"description": "El id del estado"
 					}
 				]
 			},
 			{
 				"method": "GET",
-				"url": "estados/:id/municipios/",
-				"description": "Regresa los municipios del estado con @id=:id",
+				"url": "estados/:id/municipios",
+				"description": "Obtiene los municipios de un estado a partir de su id",
 				"parameters": [
 					{
 						"r": ":id",
 						"type": "int",
+						"valores": "-",
 						"description": "El id del estado"
+					}
+				]
+			},
+			{
+				"method": "GET",
+				"url": "estados/:id/geojson/",
+				"description": "Obtiene la información de geojson de un estado a partir de su id",
+				"parameters": [
+					{
+						"r": ":id",
+						"type": "int",
+						"valores": "-",
+						"description": "El id del estado"
+					}
+				]
+			}
+		]
+	},
+	{
+		"name": "Municipios",
+		"description": "Los municipios de México",
+		"requests": [
+			{
+				"method": "GET",
+				"url": "municipios",
+				"description": "Obtiene los municipios de México",
+				"parameters": [],
+				"opciones": [
+					{
+						"r": "nombreEstados=",
+						"default": "false",
+						"type": "bool",
+						"description": "Obtiene el nombre del estado al que pertenece cada municipio"
+					}
+				]
+			},
+			{
+				"method": "GET",
+				"url": "municipios/:id",
+				"description": "Obtiene un municipio a partir de su id",
+				"parameters": [
+					{
+						"r": ":id",
+						"type": "int",
+						"valores": "-",
+						"description": "El id del municipio"
+					}
+				]
+			},
+			{
+				"method": "GET",
+				"url": "municipios/:id/geojson/",
+				"description": "Obtiene la información geojson de un municipio a partir de su id",
+				"parameters": [
+					{
+						"r": ":id",
+						"type": "int",
+						"valores": "-",
+						"description": "El id del municipio"
+					}
+				]
+			}
+		]
+	},
+	{
+		"name": "Grupos",
+		"description": "Las categorías más abstractas en las que se dividen las estadísticas de politiquer.io",
+		"requests": [
+			{
+				"method": "GET",
+				"url": "grupos",
+				"description": "Obtiene una lista con todos los grupos",
+				"parameters": [],
+				"opciones": [
+					{
+						"r": "subgrupos=",
+						"default": "false",
+						"type": "bool",
+						"description": "Obtiene los subgrupos anidados en cada grupo"
+					}
+				]
+			},
+			{
+				"method": "GET",
+				"url": "grupos/:id",
+				"description": "Obtiene un grupo a partir de su id",
+				"parameters": [
+					{
+						"r": ":id",
+						"type": "int",
+						"valores": "-",
+						"description": "El id del grupo"
+					}
+				],
+				"opciones": [
+					{
+						"r": "subgrupos=",
+						"default": "false",
+						"type": "bool",
+						"description": "Obtiene los subgrupos anidados en cada grupo"
+					}
+				]
+			},
+			{
+				"method": "GET",
+				"url": "grupos/:id/subgrupos",
+				"description": "Obtiene los subgrupos de un grupo a partir de su id",
+				"parameters": [
+					{
+						"r": ":id",
+						"type": "int",
+						"valores": "-",
+						"description": "El id del grupo"
+					}
+				],
+				"opciones": []
+			}
+		]
+	},
+	{
+		"name": "Subgrupos",
+		"description": "En el segundo y último nivel de abstracción en la divisón de las estadísticas de politiquer.io",
+		"requests": [
+			{
+				"method": "GET",
+				"url": "subgrupos",
+				"description": "Obtiene una lista con todos los subgrupos",
+				"parameters": [],
+				"opciones": [
+					{
+						"r": "estadisticas=",
+						"default": "false",
+						"type": "bool",
+						"description": "Obtiene las estadísticas anidados en cada subgrupo"
+					}
+				]
+			},
+			{
+				"method": "GET",
+				"url": "subgrupos/:id",
+				"description": "Obtiene el grupo con @id=:id",
+				"parameters": [
+					{
+						"r": ":id",
+						"type": "int",
+						"valores": "-",
+						"description": "El id del grupo"
+					}
+				],
+				"opciones": [
+					{
+						"r": "estadisticas=",
+						"default": "false",
+						"type": "bool",
+						"description": "Obtiene las estadísticas anidados en cada subgrupo"
+					}
+				]
+			},
+			{
+				"method": "GET",
+				"url": "subgrupos/:id/estadisticas",
+				"description": "Obtiene las estadísticas de un subgrupo a partir de su id",
+				"parameters": [
+					{
+						"r": ":id",
+						"type": "int",
+						"valores": "-",
+						"description": "El id del subgrupo"
+					}
+				],
+				"opciones": []
+			}
+		]
+	},
+	{
+		"name": "Fuentes",
+		"description": "Las fuentes de politiquer.io",
+		"requests": [
+			{
+				"method": "GET",
+				"url": "fuentes",
+				"description": "Obtiene una lista con todas las fuentes de politiquer.io",
+				"parameters": [],
+				"opciones": []
+			},
+			{
+				"method": "GET",
+				"url": "fuentes/:id",
+				"description": "Obtiene una fuente por su id",
+				"parameters": [
+					{
+						"r": ":id",
+						"type": "int",
+						"valores": "-",
+						"description": "El id de la fuente"
+					}
+				],
+				"opciones": []
+			}
+		]
+	},
+	{
+		"name": "Estadísticas",
+		"description": "Las estadísticas de politiquer.io",
+		"requests": [
+			{
+				"method": "GET",
+				"url": "estadisticas/:id",
+				"description": "Obtiene una estadística a partir de su id",
+				"parameters": [
+					{
+						"r": ":id",
+						"type": "int",
+						"valores": "-",
+						"description": "El id de la estadística"
+					}
+				],
+				"opciones": [
+					{
+						"r": "nombreSubgrupos=",
+						"default": "false",
+						"type": "bool",
+						"description": "Obtiene el nombre del subgrupo al que pertence cada estadística"
+					}
+				]
+			},
+			{
+				"method": "GET",
+				"url": "estadisticas/:id/datasets",
+				"description": "Obtiene los datasets de una estadística a partir de su id",
+				"parameters": [
+					{
+						"r": ":id",
+						"type": "int",
+						"valores": "-",
+						"description": "El id de la estadística"
+					}
+				],
+				"opciones": [
+					{
+						"r": "nombreFuentes=",
+						"default": "false",
+						"type": "bool",
+						"description": "Obtiene el nombre de la fuente del dataset"
+					},
+					{
+						"r": "nombreContribuidor=",
+						"default": "false",
+						"type": "bool",
+						"description": "Obtiene el nombre del contribuidor del dataset"
+					},
+					{
+						"r": "nombreEstadistica=",
+						"default": "false",
+						"type": "bool",
+						"description": "Obtiene el nombre de la estadística del dataset"
+					},
+					{
+						"r": "numeros=",
+						"default": "false",
+						"type": "bool",
+						"description": "Obtiene la cantidad de datos nacionales, estatales y municipales que tiene el dataset"
+					}
+				]
+			},
+			{
+				"method": "GET",
+				"url": "estadisticas/:id/fuentes",
+				"description": "Obtiene los fuentes que han publicado datasets de una estadística partir de su id",
+				"parameters": [
+					{
+						"r": ":id",
+						"type": "int",
+						"valores": "-",
+						"description": "El id de la estadística"
+					}
+				],
+				"opciones": []
+			},
+			{
+				"method": "GET",
+				"url": "estadisticas/:id/fuentes/:fuente_id/historico/:tipo",
+				"description": "Obtiene una lista de todos los datasets <b>con valores</b> a partir de una fuente y una estadística",
+				"parameters": [
+					{
+						"r": ":id",
+						"type": "int",
+						"valores": "-",
+						"description": "El id de la estadística"
+					},
+					{
+						"r": ":fuente_id",
+						"type": "int",
+						"valores": "-",
+						"description": "El id de la fuente"
+					},
+					{
+						"r": ":tipo",
+						"type": "str",
+						"valores": "nacional, estatal, municipal",
+						"description": "El enfoque de los datos"
+					}
+				],
+				"opciones": []
+			}
+		]
+	},
+	{
+		"name": "Datasets",
+		"description": "Los datasets de politiquer.io",
+		"requests": [
+			{
+				"method": "GET",
+				"url": "datasets/:id",
+				"description": "Obtiene los datos generales de un dataset por su id. (Nota: éste dataset no contiene datos)",
+				"parameters": [
+					{
+						"r": ":id",
+						"type": "int",
+						"description": "El id de la estadística"
+					}
+				],
+				"opciones": [
+					{
+						"r": "nombreFuentes=",
+						"default": "false",
+						"type": "bool",
+						"description": "Obtiene el nombre de la fuente del dataset"
+					},
+					{
+						"r": "nombreContribuidor=",
+						"default": "false",
+						"type": "bool",
+						"description": "Obtiene el nombre del contribuidor del dataset"
+					},
+					{
+						"r": "nombreEstadistica=",
+						"default": "false",
+						"type": "bool",
+						"description": "Obtiene el nombre de la estadística del dataset"
+					},
+					{
+						"r": "numeros=",
+						"default": "false",
+						"type": "bool",
+						"description": "Obtiene la cantidad de datos nacionales, estatales y municipales que tiene el dataset"
+					}
+				]
+			},
+			{
+				"method": "GET",
+				"url": "datasets/:id/:tipo",
+				"description": "Obtiene los valores de un dataset",
+				"parameters": [
+					{
+						"r": ":id",
+						"type": "int",
+						"valores": "-",
+						"description": "El id del dataset"
+					},
+					{
+						"r": ":tipo",
+						"type": "str",
+						"valores": "nacional, estatal, municipal",
+						"description": "El enfoque de los datos"
+					}
+				],
+				"opciones": [
+					{
+						"r": "nombreEstados=",
+						"default": "false",
+						"type": "bool",
+						"description": "Obtiene el nombre de los estados"
+					},
+					{
+						"r": "nombreMunicipios=",
+						"default": "false",
+						"type": "bool",
+						"description": "Obtiene el nombre de los municipios"
 					}
 				]
 			}

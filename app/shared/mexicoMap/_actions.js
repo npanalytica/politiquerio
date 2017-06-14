@@ -6,6 +6,7 @@
 angular.module('app').service('MexicoMapaActions', [
 'MexicoMapaZooms',
 function(Zoom) {
+	const PADDING = 10;
 	return {
 		mouseMove: function(tooltip) {
 			tooltip.style("left", (d3.event.pageX) + "px")
@@ -29,7 +30,7 @@ function(Zoom) {
 		estadoClick: function(d, svg, path, dim) {
 			var centroid = path.centroid(d);
 			var k = Zoom.getProportion(d, path, dim);
-			var coords = [centroid[0] + 10, centroid[1] + 10, k];
+			var coords = [centroid[0] + PADDING, centroid[1] + PADDING, k];
 			svg.selectAll('.estado').classed('estado-unfocused', function(d_2) {
 				if(d != d_2) return true;
 			})

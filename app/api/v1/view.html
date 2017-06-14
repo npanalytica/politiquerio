@@ -14,40 +14,80 @@
 
 	<div class="row">
 
-		<div id="api-menu" class="three columns">
-			<a href="">General</a>
-			<a href="">Grupos</a>
+		<div id="api-menu" class="two columns">
+			<div ng-repeat="entry in vm.api track by $index">
+				<a ng-href="{{'#S' + $index}}" du-smooth-scroll><span ng-bind="entry.name"></span></a>
+			</div>
 		</div>
 
-		<div id="api-content" class="nine columns">
-			<div class="api-section" ng-repeat="entry in vm.api">
+		<div id="api-content" class="ten columns">
+			<div ng-attr-id="{{'S' + $index}}" class="api-section" ng-repeat="entry in vm.api track by $index">
 				<span class="api-title" ng-bind="entry.name"></span>
 				<span class="api-desc" ng-bind="entry.description"></span>
 
 				<span class="api-requests">HTTP requests</span>
 
 				<div class="api-request" ng-repeat="req in entry.requests">
+
 					<div class="api-code">
 						<span class="api-code-method" ng-bind="req.method"></span>
 						<span class="api-code-text" ng-bind="vm.base + req.url"></span>
 					</div>
+
 					<span class="api-request-description" ng-bind="req.description"></span>
 					<div class="api-request-params" ng-if="req.parameters.length > 0">
-						<div class="api-request-param" ng-repeat="param in req.parameters">
-							<span>ok</span>
+						<div class="font-secondary" style="margin-top:10px;">
+							<i class="ion-gear-b"></i>
+							<b>Parámetros</b>
+						</div>
+						<div class="row api-table-header">
+							<div class="three columns">parámetro</div>
+							<div class="two columns">tipo</div>
+							<div class="three columns">valores</div>
+							<div class="four columns">descripción</div>
+						</div>
+						<div class="api-request-param row" ng-repeat="param in req.parameters">
+							<div class="three columns">
+								<span ng-bind="param.r"></span>
+							</div>
+							<div class="two columns">
+								<span ng-bind="param.type"></span>
+							</div>
+							<div class="three columns">
+								<span ng-bind="param.valores"></span>
+							</div>
+							<div class="four columns">
+								<span ng-bind="param.description"></span>
+							</div>
 						</div>
 					</div>
-					<span class="api-request-no-params" ng-if="req.parameters.length == 0">
-						Este request no acepta parámetros
-					</span>
-					<button ng-click="vm.runRequest(req)">
-						RUN REQUEST
-					</button>
 
-					<div class="api-result">
-						<span ng-bind="req.$$result"></span>
+					<div class="api-request-params" ng-if="req.opciones.length > 0">
+						<div class="font-secondary" style="margin-top:10px;">
+							<i class="ion-levels"></i>
+							<b>Opciones</b>
+						</div>
+						<div class="row api-table-header">
+							<div class="three columns">opción</div>
+							<div class="two columns">tipo</div>
+							<div class="two columns">default</div>
+							<div class="five columns">descripción</div>
+						</div>
+						<div class="api-request-param row" ng-repeat="opciones in req.opciones">
+							<div class="three columns">
+								<span ng-bind="opciones.r"></span>
+							</div>
+							<div class="two columns">
+								<span ng-bind="opciones.type"></span>
+							</div>
+							<div class="two columns">
+								<span ng-bind="opciones.default"></span>
+							</div>
+							<div class="five columns">
+								<span ng-bind="opciones.description"></span>
+							</div>
+						</div>
 					</div>
-
 				</div>
 
 

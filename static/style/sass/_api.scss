@@ -1,9 +1,11 @@
 @import "colors";
 
 #api-menu {
+	margin-top: 65px;
 }
 
-#api-content {
+#api-menu > div {
+	margin-top: 5px;
 }
 
 .api-section {
@@ -14,9 +16,10 @@
 
 .api-title {
 	display: block;
-	padding-top: 5px;
+	text-align: center;
+	padding-top: 10px;
 	padding-bottom: 5px;
-	font-size: 14pt;
+	font-size: 18pt;
 	color: $color-secondary;
 }
 
@@ -30,8 +33,27 @@
 .api-requests {
 	display: block;
 	font-weight: bold;
-	font-size: 12pt;
+	font-size: 10pt;
 	margin-bottom: 10px;
+}
+
+.api-request {
+	margin-bottom: 15px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid $color-medium;
+}
+
+.api-request-description {
+	margin-top: 10px;
+	font-style: italic;
+}
+
+.api-table-header {
+	margin-top: 10px;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+	border-bottom: 1px solid $color-superlight;
+	font-weight: bold;
 }
 
 .api-code {

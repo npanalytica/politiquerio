@@ -18,6 +18,11 @@
 		<script src="/bower/angular/angular.min.js"></script>
 		<script src="/bower/angular-route/angular-route.min.js"></script>
 		<script src="/bower/angular-sanitize/angular-sanitize.min.js"></script>
+		<!-- Slider -->
+		<link rel="stylesheet" type="text/css" href="/bower/angularjs-slider/dist/rzslider.min.css"/>
+		<script src="/bower/angularjs-slider/dist/rzslider.min.js"></script>
+		<!-- SmoothScroll -->
+		<script src="/bower/angular-scroll/angular-scroll.min.js"></script>
 		<!-- Skeleton -->
 		<link rel="stylesheet" media="all" href="/bower/skeleton/css/normalize.css">
 		<link rel="stylesheet" media="all" href="/bower/skeleton/css/skeleton.css">
@@ -34,17 +39,21 @@
 		<script src="routes.js"></script>
 		<!-- Services -->
 		<script src="services/Rest.js"></script>
+		<script src="services/responder.js"></script>
 		<script src="services/RESTDataset.js"></script>
 		<script src="services/Search.js"></script>
 		<script src="services/DatasetHelpers.js"></script>
 		<script src="services/Static.js"></script>
 		<script src="services/ChartHelpers.js"></script>
 		<script src="services/helpers.js"></script>
+		<script src="services/entidades.js"></script>
 		<!-- Shared -->
 		<script src="shared/httpLoader/controller.js"></script>
 		<script src="shared/paginationView/directive.js"></script>
 		<script src="shared/lineChart/directive.js"></script>
 		<script src="shared/lineChart/controller.js"></script>
+		<script src="shared/tableView/directive.js"></script>
+		<script src="shared/tableView/controller.js"></script>
 		<script src="shared/mexicoMap/_draw.js"></script>
 		<script src="shared/mexicoMap/_actions.js"></script>
 		<script src="shared/mexicoMap/_colors.js"></script>
@@ -62,10 +71,13 @@
 		<!--<script src="components/dataset_view/_dataset_custom_column.js"></script>-->
 		<script src="components/dataset_view/_dataset_table.js"></script>
 		<!--<script src="components/dataset_view/_dataset_map.js"></script>-->
+		<script src="components/search_bar/_respuesta_display.js"></script>
+		<script src="components/search_bar/_respuesta_meta.js"></script>
 		<!-- Controllers -->
 		<script src="modules/landing/controller.js"></script>
 		<script src="modules/explorador/controller.js"></script>
 		<script src="api/v1/controller.js"></script>
+		<!-- Checkboxes -->
 		<link rel="stylesheet" media="all" href="static/style/style.css"/>
 	</head>
 	<body ng-app="app">
