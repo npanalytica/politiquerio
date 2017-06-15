@@ -1,0 +1,40 @@
+<top-nav></top-nav>
+
+<div class="dataset-menu">
+	<div class="container">
+		<div class="dataset-menu-btn"
+			ng-class="{'dataset-menu-btn-active': vm.display == 'tabla'}"
+			ng-click="vm.display = 'tabla'">
+			Tabla
+		</div>
+		<div class="dataset-menu-btn"
+			ng-class="{'dataset-menu-btn-active': vm.display == 'mapa'}"
+			ng-click="vm.display = 'mapa'">
+			Mapa
+		</div>
+	</div>
+</div>
+
+<div class="container naked-container">
+
+	<div class="explorador-header">
+		<span ng-bind="vm.dataset.nombre + ', ' + vm.formatFecha(vm.dataset.fecha)"></span>
+		<a ng-href="/#/estadisticas/{{vm.dataset.estadistica_id}}">
+			<i class="ion-arrow-left-b"></i>
+			<span ng-bind="vm.dataset.estadistica"></span>
+		</a>
+	</div>
+
+	<mexico-map
+		ng-if="vm.display == 'mapa'"
+		dataset="vm.map"
+		width="960">
+	</mexico-map>
+
+	<table-view
+		ng-if="vm.display == 'tabla'"
+		view="estados"
+		table="vm.table">
+	</table-view>
+
+</div>

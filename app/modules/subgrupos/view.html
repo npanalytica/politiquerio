@@ -1,0 +1,28 @@
+<top-nav></top-nav>
+
+<div class="container naked-container" ng-if="vm.httpStatus == 0">
+	<div class="explorador-header">
+		<span ng-bind="vm.subgrupo.nombre"></span>
+	</div>
+	<div class="row">
+		<a href="/#/grupos/{{vm.subgrupo.grupo_id}}"
+			class="explorador-lista-item">
+			<i class="ion-arrow-left-b"></i> Subgrupos
+		</a>
+		<a
+			class="explorador-lista-item"
+			ng-class="{'explorador-lista-item-even': $even}"
+			ng-href="/#/estadisticas/{{e.id}}"
+			ng-repeat="e in vm.subgrupo.estadisticas
+			| limitTo: vm.pagination.items_per_page :
+			vm.pagination.current_page * vm.pagination.items_per_page
+			track by $index">
+			<span ng-bind="e.nombre"></span>
+			<span class="explorador-badge"
+				ng-bind="e.n_datasets + ' datasets'">
+			</span>
+		</a>
+	</div>
+</div>
+
+<pagination-view pagination="vm.pagination"></pagination-view>

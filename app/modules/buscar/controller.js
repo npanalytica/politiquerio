@@ -1,11 +1,11 @@
 /**
- * @name ExploradorController
+ * @name BuscarController
  * @version 0.0.1
  */
 
-angular.module('app').controller('ExploradorController', [
-'Rest', 'RESTDataset', 'Helpers', 'Static',
-function(Rest, RESTDataset, Helpers, Static) {
+angular.module('app').controller('BuscarController', [
+'RESTDataset', 'Helpers', 'Static',
+function(RESTDataset, Helpers, Static) {
 
 	var self = this;
 
@@ -13,7 +13,7 @@ function(Rest, RESTDataset, Helpers, Static) {
 	self.SLIDER_CLEAN_OPTIONS = {floor: 0, ceil: 4};
 
 	self.search = {
-		text: 'suicidios',
+		text: '',
 		httpStatus: 3,
 		has_national_data: false,
 		has_state_data: false,

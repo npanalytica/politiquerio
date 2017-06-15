@@ -5,15 +5,19 @@ const Datasets = require('./datasets');
 const Fuentes = require('./fuentes');
 
 module.exports.makeSelect = function(query) {
-	let sql = ["SELECT estadisticas.id, estadisticas.nombre, estadisticas.keywords"];
+	let sql = ["SELECT estadisticas.id, estadisticas.nombre,\
+		estadisticas.keywords, estadisticas.subgrupo_id"];
 	let joins = [];
 
 	// Estados
 	if(query.nombreSubgrupos) {
 		sql.push(", subgrupos.nombre AS subgrupo");
 		joins.push("JOIN subgrupos ON subgrupos.id = estadisticas.subgrupo_id");
-	} else {
-		sql.push(", estadisticas.subgrupo_id");
+	}
+
+	if(query.numeros) {
+		sql.push(", (SELECT count(*) FROM datasets WHERE \
+			estadistica_id = estadisticas.id) as n_datasets");
 	}
 
 	sql.push("FROM estadisticas");

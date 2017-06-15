@@ -56,7 +56,8 @@
 			</div>
 		</div>
 		<div class="nine columns" ng-if="vm.search.httpStatus == 0 && vm.search.resultados.length > 0">
-			<div class="row exp-resultado" ng-class="{'exp-odd': $odd}" ng-repeat="r in vm.search.resultados
+			<div class="row exp-resultado" ng-class="{'exp-odd': $odd}"
+			ng-repeat="r in vm.search.resultados
 			| limitTo: vm.pagination.items_per_page :
 			vm.pagination.current_page * vm.pagination.items_per_page
 			track by $index">

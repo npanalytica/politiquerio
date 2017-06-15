@@ -5,21 +5,23 @@ const Q = require('q');
 const Estadisticas = require('./estadisticas');
 
 module.exports.makeSelect = function(query) {
-	let sql = ["SELECT subgrupos.id, subgrupos.nombre"];
+	let sql = ["SELECT subgrupos.id, subgrupos.nombre, subgrupos.grupo_id"];
 	let joins = [];
 
 	// Estados
 	if(query.grupos) {
 		sql.push(", grupos.nombre AS grupo");
 		joins.push("JOIN grupos ON grupos.id = subgrupos.grupo_id");
-	} else {
-		sql.push(", subgrupos.grupo_id");
+	}
+
+	if(query.numeros) {
+		sql.push(", (SELECT count(*) FROM estadisticas WHERE \
+			subgrupo_id = subgrupos.id) as n_estadisticas");
 	}
 
 	sql.push("FROM subgrupos");
 	sql = sql.concat(joins);
 	sql.push("WHERE TRUE");
-
 	return sql;
 }
 

@@ -1,0 +1,50 @@
+<top-nav></top-nav>
+
+<div class="container naked-container" ng-if="vm.grupos && vm.httpStatus == 0">
+	<div class="explorador-header">
+		Grupos
+	</div>
+	<div class="row">
+		<a
+			class="explorador-lista-item"
+			ng-class="{'explorador-lista-item-even': $even}"
+			ng-href="/#/grupos/{{g.id}}"
+			ng-repeat="g in vm.grupos
+			| limitTo: vm.pagination.items_per_page :
+			vm.pagination.current_page * vm.pagination.items_per_page
+			track by $index">
+			<i class="{{g.icono}}"></i>
+			<span ng-bind="g.nombre"></span>
+			<span class="explorador-badge"
+				ng-bind="g.n_subgrupos + ' subgrupos'">
+			</span>
+		</a>
+	</div>
+</div>
+
+<div class="container naked-container" ng-if="vm.grupo && vm.httpStatus == 0">
+	<div class="explorador-header">
+		<i class="{{vm.grupo.icono}}"></i>
+		<span ng-bind="vm.grupo.nombre"></span>
+	</div>
+	<div class="row">
+		<a href="/#/grupos" class="explorador-lista-item">
+			<i class="ion-arrow-left-b"></i> Grupos
+		</a>
+		<a
+			class="explorador-lista-item"
+			ng-class="{'explorador-lista-item-even': $even}"
+			ng-href="/#/subgrupos/{{s.id}}"
+			ng-repeat="s in vm.grupo.subgrupos
+			| limitTo: vm.pagination.items_per_page :
+			vm.pagination.current_page * vm.pagination.items_per_page
+			track by $index">
+			<span ng-bind="s.nombre"></span>
+			<span class="explorador-badge"
+				ng-bind="s.n_estadisticas + ' estadisticas'">
+			</span>
+		</a>
+	</div>
+</div>
+
+<pagination-view pagination="vm.pagination"></pagination-view>

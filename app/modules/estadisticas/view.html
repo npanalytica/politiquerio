@@ -1,0 +1,28 @@
+<top-nav></top-nav>
+
+<div class="container naked-container" ng-if="vm.httpStatus == 0">
+	<div class="explorador-header">
+		<span ng-bind="vm.estadistica.nombre"></span>
+	</div>
+	<div class="row">
+		<a href="/#/subgrupos/{{vm.estadistica.subgrupo_id}}"
+			class="explorador-lista-item">
+			<i class="ion-arrow-left-b"></i> Subgrupo
+		</a>
+		<a
+			class="explorador-lista-item"
+			ng-class="{'explorador-lista-item-even': $even}"
+			ng-href="/#/datasets/{{d.id}}"
+			ng-repeat="d in vm.estadistica.datasets
+			| limitTo: vm.pagination.items_per_page :
+			vm.pagination.current_page * vm.pagination.items_per_page
+			track by $index">
+			<span ng-bind="d.nombre + ', ' + vm.formatFecha(d.fecha)"></span>
+			<span class="explorador-badge" ng-if="d.n_nacionales > 0">nacionales</span>
+			<span class="explorador-badge" ng-if="d.n_estatales > 0">estatales</span>
+			<span class="explorador-badge" ng-if="d.n_municipales > 0">municipales</span>
+		</a>
+	</div>
+</div>
+
+<pagination-view pagination="vm.pagination"></pagination-view>

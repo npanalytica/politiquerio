@@ -5,8 +5,12 @@ const Q = require('q');
 const Subgrupos = require('./subgrupos');
 
 module.exports.makeSelect = function(query) {
-	let sql = ["SELECT grupos.id, grupos.nombre, grupos.icono \
-	FROM grupos WHERE TRUE"];
+	let sql = ["SELECT grupos.id, grupos.nombre, grupos.icono"];
+	if(query.numeros) {
+		sql.push(", (SELECT count(*) FROM subgrupos WHERE \
+			grupo_id = grupos.id) as n_subgrupos");
+	}
+	sql.push("FROM grupos WHERE TRUE");
 	return sql;
 }
 
@@ -15,7 +19,6 @@ module.exports.get = function(con, id, query) {
 	let sql = module.exports.makeSelect(query);
 	if(id) sql.push("AND grupos.id = ?");
 	let promises = [DB.execute(con, sql.join(' '), [id])];
-
 	if(query.subgrupos) {
 		let m_sql = Subgrupos.makeSelect(query);
 		if(id) m_sql.push("AND grupo_id = ?");
@@ -24,9 +27,8 @@ module.exports.get = function(con, id, query) {
 
 	Q.all(promises).then((res) => {
 		if(query.subgrupos) {
-			let fk = query.grupos ? 'grupo' : 'grupo_id';
 			let prop = query.grupos ? 'nombre' : 'id';
-			let subs = _.groupBy(res[1], fk);
+			let subs = _.groupBy(res[1], 'grupo_id');
 			for(var i = 0; i < res[0].length; i++) {
 				res[0][i].subgrupos = subs[res[0][i][prop]];
 			}

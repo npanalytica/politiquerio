@@ -53,12 +53,12 @@ function(Helpers, Static, Entidades, ChartHelpers) {
 			});
 			data.estados = estatal;
 			data.municipios = municipal;
+			var has_mun_data = municipal.length > 0 ||
+				_.some(_datasets, function(d) { return d.n_municipales > 0; });
 			return {
 				headers: headers,
 				data: data,
-				has_mun_data: _.some(_datasets, function(d) {
-					return d.n_municipales > 0;
-				})
+				has_mun_data: has_mun_data
 			}
 		},
 

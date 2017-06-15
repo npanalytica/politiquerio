@@ -1,5 +1,64 @@
 @import "colors";
 
+.explorador-header {
+	font-size: 22pt;
+	color: $color-primary;
+	text-align: center;
+	padding-bottom: 5px;
+	border-bottom: 1px solid $color-light;
+}
+
+.explorador-header > a {
+	display: block;
+	font-size: 9pt;
+}
+
+.explorador-lista-item {
+	color: #5e5e5e;
+	display: block;
+	padding: 5px 0px 5px 20px;
+}
+
+.explorador-lista-item:hover {
+	color: #5e5e5e;
+}
+
+.explorador-lista-item-even { background-color: #dbdbdb; }
+
+.explorador-badge {
+	font-size: 8pt;
+	padding: 1px 6px 1px 6px;
+	color: #fff;
+	background-color: #79ACE5;//$color-secondary;
+	border-radius: 8px;
+}
+
+.dataset-menu {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	width: 100%;
+	background-color: $color-primary;
+}
+
+.dataset-menu-btn {
+	float: left;
+	color: #fff;
+	cursor: pointer;
+	padding: 10px 20px 10px 20px;
+	border-top: 1px solid transparent;
+	border-bottom: 1px solid transparent;
+}
+
+.dataset-menu-btn > i {
+	margin-right: 5px;
+}
+
+.dataset-menu-btn-active {
+	background-color: #fff;
+	color: $color-primary;
+	border-color: $color-primary;
+}
+
 .exp-busqueda-section-top {
 	display: block;
 	width: 100%;
