@@ -18,5 +18,14 @@
     "q": "^1.4.1",
     "skeleton": "^0.1.2",
     "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+	"gulp": "^3.9.1",
+    "gulp-angular-templatecache": "^2.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.1",
+    "gulp-uglifycss": "^1.0.6"
   }
+
 }
