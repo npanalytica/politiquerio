@@ -20,7 +20,8 @@ const VENDOR = [
 	"bower_components/file-saver/FileSaver.min.js",
 	"bower_components/d3/d3.min.js",
 	"bower_components/topojson/topojson.min.js",
-	"bower_components/angular-contenteditable/angular-contenteditable.js"
+	"bower_components/angular-contenteditable/angular-contenteditable.js",
+	"bower_components/angular-youtube-mb/dist/angular-youtube-embed.min.js"
 ]
 
 const APP = [
@@ -76,7 +77,8 @@ const CONTROLLERS = [
 	"app/modules/subgrupos/controller.js",
 	"app/modules/estadisticas/controller.js",
 	"app/modules/datasets/controller.js",
-	"app/api/v1/controller.js"
+	"app/api/v1/controller.js",
+	"app/modules/docs/controller.js"
 ]
 
 const STYLES = [

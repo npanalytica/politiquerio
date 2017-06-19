@@ -3,7 +3,8 @@ var app = angular.module('app', [
 	'duScroll',
 	'ngRoute',
 	'ngSanitize',
-	'rzModule'
+	'rzModule',
+	'youtube-embed'
 ]);
 
 angular.module('app').constant('config', {
@@ -51,6 +52,10 @@ angular.module('app').config(['$routeProvider', '$locationProvider',
 	}).when('/datasets/:id', {
 		templateUrl: '/modules/datasets/view.html',
 		controller: 'DatasetsController',
+		controllerAs: 'vm'
+	}).when('/docs/manifesto', {
+		templateUrl: '/modules/docs/manifesto.html',
+		controller: 'DocsController',
 		controllerAs: 'vm'
 	}).otherwise({
 		templateUrl: '/modules/temporary_splash/view.html'

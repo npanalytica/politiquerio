@@ -3,5 +3,6 @@ var app = angular.module('app', [
 	'duScroll',
 	'ngRoute',
 	'ngSanitize',
-	'rzModule'
+	'rzModule',
+	'youtube-embed'
 ]);
