@@ -37,24 +37,12 @@ $ bower install
 
 ### 4. Descarga la base de datos
 Dirígete al <a href="http://politiquer.io/descargas/">sitio de politiquerio</a> y descarga:
-- 1. database_v_01.sql (Éste archivo tiene la estructura de la base de datos, pero nada de información)
-- 2. ya sea **solo_poblacion_v_01.sql**, o **data_v_01.sql**.
-
-data_v_01.sql contiene toda la información de politiquerio (¡150 megas en la versión 0.1!), mientras que solo_poblacion_v_01.sql tiene solamente los datos del censo de población de la INEGI, y es una descarga muchísimo más pequeña.
+- <a href="http://politiquer.io/descargas/database_v_01.sql">database_v_01.sql</a>
 
 Dirígete al directorio donde descargaste ésos archivos y corre:
 ~~~~
 $ mysql source database_v_01.sql
 ~~~~
-y ya sea
-~~~~
-$ mysql source data_v_01.sql
-~~~~
-o
-~~~~
-$ mysql source solo_poblacion_v_01.sql
-~~~~
-dependiendo del archivo que descargaste.
 
 ### 5. Configura la conexión a la base de datos
 

@@ -17,6 +17,7 @@ connection.init();
 // Static routes
 app.use('/', express.static(__dirname + './../app/'));
 app.use('/static', express.static(__dirname + './../static/'));
+app.use('/descargas', express.static(__dirname + './../descargas/'));
 app.use('/node', express.static(__dirname + './../node_modules/'));
 app.use('/bower', express.static(__dirname + './../bower_components/'));
 
