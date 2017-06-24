@@ -130,10 +130,11 @@ $ git rebase master
 Sube tus cambios a tus repositorio local
 ~~~
 $ git add --all
+# Haz tus comentarios en el commit breves y descriptivos
 $ git commit .
+# Empuja a github
+$ git push -u origin master
 ~~~
-
-Haz tus comentarios en el commit breves y descriptivos.
 
 Finalmente, ve a tu página en github, encuentra tu fork, y pide un *pull request*:
 
