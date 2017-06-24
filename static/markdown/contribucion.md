@@ -82,7 +82,7 @@ Politiquerío está corriendo en el puerto 8000
 
 # Branching
 
-Antes de empujer tu código a politiquerio, tienes que agregar el proyecto principal como un *upstream*:
+Antes de empujar tu código a politiquerio, tienes que agregar el proyecto principal como un *upstream*:
 
 ~~~
 # Agrega 'upstream' a la lista de remotes
