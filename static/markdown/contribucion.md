@@ -82,7 +82,7 @@ Politiquerío está corriendo en el puerto 8000
 
 # Branching
 
-Antes de empujet tu código a politiquerio, tienes que agregar el proyecto principal como un *upstream*:
+Antes de empujer tu código a politiquerio, tienes que agregar el proyecto principal como un *upstream*:
 
 ~~~
 # Agrega 'upstream' a la lista de remotes
@@ -126,5 +126,22 @@ Si hubo nuevos commits, has un rebase de tu branch:
 $ git checkout nuevofeature
 $ git rebase master
 ~~~
+
+Sube tus cambios a tus repositorio local
+~~~
+$ git add --all
+$ git commit .
+~~~
+
+Haz tus comentarios en el commit breves y descriptivos.
+
+Finalmente, ve a tu página en github, encuentra tu fork, y pide un *pull request*:
+
+
+<p align="center">
+  <br/>
+  <img src="http://politiquer.io/static/images/pull.png">
+  <br/>
+</p>
 
 Una vez que tus cambios sean aceptados por npanalytica, tu código se volverá parte de politiquer.io.
