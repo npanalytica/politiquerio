@@ -25,5 +25,5 @@ Si te gustaría contribuír, ve cuales son los
 problemas</a> que tenemos.
 
 Si quieres descargar el sitio y empezar a hacerle cambios, puedes ver una guía
-<a href="https://github.com/npanalytica/politiquerio/blob/master/static/markdown/descargar.md">
+<a href="https://github.com/npanalytica/politiquerio/blob/master/static/markdown/contribucion.md">
 aquí</a>.
