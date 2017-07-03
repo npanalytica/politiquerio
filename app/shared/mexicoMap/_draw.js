@@ -11,6 +11,8 @@ function(Helpers, Actions, Gradients) {
 	.attr("class", "tooltip").style("opacity", 0);
 
 	return {
+		CALLBACK: false, // La función que se ejecuta cuando termina de
+		// dibujarse el mapa
 		MAP_ID: 'pol_mexico_map',
 		DATASETS: null,
 		GEOJSON: null,
@@ -25,6 +27,9 @@ function(Helpers, Actions, Gradients) {
 			right_longitude	: -86.71040527005668
 		},
 		TOOLTIP: _tooltip,
+		setCallback: function(fn) {
+			this.CALLBACK = fn;
+		},
 		setDataset: function(ds) {
 			this.DATASET = ds;
 			var eds = _.pick(ds, function(v,k) { return k < 1000; });
@@ -88,6 +93,7 @@ function(Helpers, Actions, Gradients) {
 				self.GEOJSON.estados.objects.states))
 			.attr("d", self.PATH).attr("class", 'estado-border');
 			Gradients.draw(self.SVG, 'estado', self.DATASET, self.G);
+			if(self.CALLBACK) self.CALLBACK();
 		},
 		municipios: function(estado_id) {
 			var self = this;

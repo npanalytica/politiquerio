@@ -17,13 +17,15 @@
 
 <div class="container naked-container">
 
-	<div class="explorador-header">
+	<div class="explorador-header" ng-if="vm.httpStatus == 0">
 		<span ng-bind="vm.dataset.nombre + ', ' + vm.formatFecha(vm.dataset.fecha)"></span>
 		<a ng-href="/#/estadisticas/{{vm.dataset.estadistica_id}}">
 			<i class="ion-arrow-left-b"></i>
 			<span ng-bind="vm.dataset.estadistica"></span>
 		</a>
 	</div>
+
+	<http-loader status="vm.httpStatus" message="'Cargando dataset...'"></http-loader>
 
 	<mexico-map
 		ng-if="vm.display == 'mapa'"

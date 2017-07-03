@@ -5,10 +5,14 @@
 **/
 
 angular.module('app').controller('MexicoMapController', [
-'$scope', '$timeout', 'Rest', 'Helpers', 'MexicoMapaDraw',
-function($scope, $timeout, Rest, Helpers, Draw) {
+'$scope', 'Rest', 'Helpers', 'MexicoMapaDraw',
+function($scope, Rest, Helpers, Draw) {
 
 	var self = this;
+
+	self.status = 2;
+
+	Draw.setCallback(function() { self.status = 0; });
 
 
 	var container_id = "#pol_mexico_map_container";
@@ -19,10 +23,7 @@ function($scope, $timeout, Rest, Helpers, Draw) {
 	.load(function(err, res) {
 		if(!err) {
 			Draw.setGeoJson(res[0], res[1]);
-			if(Draw.DATASET) {
-				Draw.mexico(container_id, self.width);
-				self.initialized = true;
-			}
+			if(Draw.DATASET) Draw.mexico(container_id, self.width);
 		}
 	});
 
@@ -32,7 +33,6 @@ function($scope, $timeout, Rest, Helpers, Draw) {
 		if(_dataset) {
 			Draw.setDataset(_dataset);
 			if(Draw.GEOJSON) Draw.mexico(container_id, self.width);
-			self.initialized = true;
 		}
 	});
 

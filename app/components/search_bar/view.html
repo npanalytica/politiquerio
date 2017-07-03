@@ -44,7 +44,10 @@
 </div>
 
 <div ng-if="vm.search.status == 2">
-	Buscando...
+	<http-loader status="vm.search.status"
+	message="'Politiquer.io está pensando... Como éste sitio está en beta,
+	esto puede tardar hasta un minuto'">
+</http-loader>
 </div>
 
 <div ng-if="vm.search.status == 1">
@@ -52,91 +55,3 @@
 		Politiquer.io no pudo responder tu pregunta... :(
 	</div>
 </div>
-
-<!--
-<div ng-if="vm.resultado"
-
-
-</div>-->
-
-
-<!--
-<http-loader http-status="vm.search.status"></http-loader>
-
-<div ng-if="vm.result">
-	<div class="row center search-result-header">
-		<span ng-bind="vm.result.estadistica"></span>
-		(<span ng-bind="vm.result.fuente"></span>)
-		<a href="" ng-click="vm.result = null; vm.results = [];
-			vm.search.text = ''; vm.chart_type = 'line';">
-			<i class="ion-close"></i>
-		</a>
-		<center class="margin-top-md">
-			<table class="search-result-table">
-				<tr>
-					<td class="search-result-table-cell">&nbsp;</td>
-					<td class="search-result-table-cell search-result-table-cell-header"
-						ng-repeat="ds in vm.result.datasets">
-						<span>
-							<div class="search-result-table-cell-ball"
-								style="background-color: {{ds.backgroundColor}}; float:left;
-									margin-top:5px; margin-right:5px;">&nbsp;</div>
-							<div style="float:left;" ng-bind="ds.label"></div>
-						</span>
-					</td>
-				</tr>
-				<tr>
-					<td class="search-result-table-cell">&nbsp;</td>
-					<td class="search-result-table-cell search-result-table-cell-value"
-						ng-repeat="ds in vm.result.datasets">
-						<span ng-bind="ds.data[ds.data.length - 1].toLocaleString()"></span>
-					</td>
-				</tr>
-			</table>
-		</center>
-	</div>
-
-	<div class="row search-viewport" ng-class = "{
-		'search-viewport-small': vm.chart_type != 'map',
-		'search-viewport-large': vm.chart_type == 'map'
-	}">
-
-		<line-chart
-			ng-show="vm.chart_type != 'map'"
-			type="vm.chart_type"
-			labels="vm.result.labels"
-			datasets="vm.result.datasets"
-			height="400"
-			width="960">
-		</line-chart>
-
-		<mexico-map
-			ng-show="vm.chart_type == 'map'"
-			dataset="vm.map_dataset"
-			width="960">
-		</mexico-map>
-
-	</div>
-
-	<div class="margin-top-md center">
-		<button ng-click="vm.chart_type = 'line'">Línea</button>
-		<button ng-click="vm.chart_type = 'bar'">Barras</button>
-		<button ng-if="vm.result.datasets_con_estados.length > 0"
-			ng-click="vm.setMapDataset()">mapa</button>
-	</div>
-
-	<div class="row search-other-results">
-		Otros datasets:
-		<span
-		ng-repeat="result in vm.results"
-		ng-if="result != vm.result">
-			<a
-				href="" ng-click="vm.setEstadistica(result)">
-				<span ng-bind="result.estadistica">
-				</span><span ng-if="!$last">,</span>
-			</a>
-		</span>
-	</div>
-
-</div>
--->

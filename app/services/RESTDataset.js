@@ -4,8 +4,8 @@
 **/
 
 angular.module('app').service('RESTDataset', [
-'Rest', 'Helpers',
-function(Rest, Helpers) {
+'Rest', 'Helpers', '$timeout',
+function(Rest, Helpers, $timeout) {
 	return {
 		requests: [],
 		loadData: function(ds) {

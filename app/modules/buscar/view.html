@@ -55,6 +55,9 @@
 				<button ng-click="vm.buscar()">Buscar</button>
 			</div>
 		</div>
+		<div class="nine columns" ng-if="vm.search.httpStatus == 2">
+			<http-loader status="vm.search.httpStatus" message="'buscando...'"></http-loader>
+		</div>
 		<div class="nine columns" ng-if="vm.search.httpStatus == 0 && vm.search.resultados.length > 0">
 			<div class="row exp-resultado" ng-class="{'exp-odd': $odd}"
 			ng-repeat="r in vm.search.resultados

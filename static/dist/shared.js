@@ -2,19 +2,14 @@
  * @name http-loader
  * @version 0.0.1
  *
- * @param {int} httpStatus -
- *		0: Success (hide httpLoader)
- *		1: Error (show error)
- *		2: Loading (show gears)
 **/
 
 angular.module('app').directive('httpLoader', function() {
 	return {
 		restrict: 'E',
 		scope: {
-			errorMessage: '=?',
-			httpStatus: '=',
-			margin: '@?'
+			status: '=',
+			message: '='
 		},
 		templateUrl: '/shared/httpLoader/view.html'
 	}
@@ -196,6 +191,8 @@ function(Helpers, Actions, Gradients) {
 	.attr("class", "tooltip").style("opacity", 0);
 
 	return {
+		CALLBACK: false, // La función que se ejecuta cuando termina de
+		// dibujarse el mapa
 		MAP_ID: 'pol_mexico_map',
 		DATASETS: null,
 		GEOJSON: null,
@@ -210,6 +207,9 @@ function(Helpers, Actions, Gradients) {
 			right_longitude	: -86.71040527005668
 		},
 		TOOLTIP: _tooltip,
+		setCallback: function(fn) {
+			this.CALLBACK = fn;
+		},
 		setDataset: function(ds) {
 			this.DATASET = ds;
 			var eds = _.pick(ds, function(v,k) { return k < 1000; });
@@ -273,6 +273,7 @@ function(Helpers, Actions, Gradients) {
 				self.GEOJSON.estados.objects.states))
 			.attr("d", self.PATH).attr("class", 'estado-border');
 			Gradients.draw(self.SVG, 'estado', self.DATASET, self.G);
+			if(self.CALLBACK) self.CALLBACK();
 		},
 		municipios: function(estado_id) {
 			var self = this;
@@ -472,10 +473,14 @@ angular.module('app').directive('mexicoMap', function() {
 **/
 
 angular.module('app').controller('MexicoMapController', [
-'$scope', '$timeout', 'Rest', 'Helpers', 'MexicoMapaDraw',
-function($scope, $timeout, Rest, Helpers, Draw) {
+'$scope', 'Rest', 'Helpers', 'MexicoMapaDraw',
+function($scope, Rest, Helpers, Draw) {
 
 	var self = this;
+
+	self.status = 2;
+
+	Draw.setCallback(function() { self.status = 0; });
 
 
 	var container_id = "#pol_mexico_map_container";
@@ -486,10 +491,7 @@ function($scope, $timeout, Rest, Helpers, Draw) {
 	.load(function(err, res) {
 		if(!err) {
 			Draw.setGeoJson(res[0], res[1]);
-			if(Draw.DATASET) {
-				Draw.mexico(container_id, self.width);
-				self.initialized = true;
-			}
+			if(Draw.DATASET) Draw.mexico(container_id, self.width);
 		}
 	});
 
@@ -499,7 +501,6 @@ function($scope, $timeout, Rest, Helpers, Draw) {
 		if(_dataset) {
 			Draw.setDataset(_dataset);
 			if(Draw.GEOJSON) Draw.mexico(container_id, self.width);
-			self.initialized = true;
 		}
 	});
 

@@ -43,7 +43,7 @@ const SERVICES = [
 ]
 
 const SHARED = [
-	"app/shared/httpLoader/controller.js",
+	"app/shared/httpLoader/directive.js",
 	"app/shared/paginationView/directive.js",
 	"app/shared/lineChart/directive.js",
 	"app/shared/lineChart/controller.js",
