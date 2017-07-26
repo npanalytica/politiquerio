@@ -1,3 +1,5 @@
+/* personas */
+
 const _ = require('underscore');
 const Q = require('q');
 const DB = require('./../../dbhelpers');
