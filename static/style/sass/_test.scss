@@ -1,0 +1,18 @@
+@import "colors";
+
+.test-radio {
+	cursor: pointer;
+	width: 50px;
+	text-align: center;
+}
+
+.test-radio > i {
+	font-size: 14pt;
+	color: $color-primary;
+	display: block;
+}
+
+.test-radio > span {
+	color: $color-soft;
+	font-size: 10pt;
+}

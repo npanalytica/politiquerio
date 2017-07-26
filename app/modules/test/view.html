@@ -1,0 +1,32 @@
+<top-nav></top-nav>
+
+<div class="container">
+<table>
+	<tr ng-repeat="p in vm.test.preguntas track by $index" ng-if="$index == 0 || vm.test.preguntas[$index - 1].res">
+		<td><span ng-bind="p.texto"></span></td>
+		<td class="test-radio" ng-click="p.res = 1">
+			<i ng-class="{
+				'ion-android-radio-button-off': p.res != 1,
+				'ion-android-radio-button-on': p.res == 1
+			}">
+			</i>
+			<span>sí</span>
+		</td>
+		<td class="test-radio" ng-click="p.res = 2">
+			<i ng-class="{
+				'ion-android-radio-button-off': p.res != 2,
+				'ion-android-radio-button-on': p.res == 2
+			}">
+			</i>
+			<span>a veces</span>
+		</td>
+		<td class="test-radio" ng-click="p.res = 3">
+			<i ng-class="{
+				'ion-android-radio-button-off': p.res != 3,
+				'ion-android-radio-button-on': p.res == 3
+			}">
+			</i>
+			<span>no</span>
+		</td>
+	</tr>
+</table>

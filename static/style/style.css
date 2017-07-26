@@ -766,6 +766,20 @@ div.tooltip {
 .custom-slider.rzslider .rz-tick.rz-selected {
   background: orange; }
 
+.test-radio {
+  cursor: pointer;
+  width: 50px;
+  text-align: center; }
+
+.test-radio > i {
+  font-size: 14pt;
+  color: #4679b2;
+  display: block; }
+
+.test-radio > span {
+  color: #777;
+  font-size: 10pt; }
+
 #navbar {
   box-sizing: border-box;
   padding-top: 60px; }

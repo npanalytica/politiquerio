@@ -12,7 +12,11 @@ app.use(boolParser());
 let connection = require('./database');
 connection.init();
 
-
+// Append query
+app.use(function(req, res, next) {
+	req.query = req.query || {};
+	next();
+});
 
 // Static routes
 app.use('/', express.static(__dirname + './../app/'));

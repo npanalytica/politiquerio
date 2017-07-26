@@ -15,9 +15,17 @@ angular.module('app').config(['$routeProvider', '$locationProvider',
 		templateUrl: '/modules/buscar/view.html',
 		controller: 'BuscarController',
 		controllerAs: 'vm'
+	}).when('/test/', {
+		templateUrl: '/modules/test/view.html',
+		controller: 'TestController',
+		controllerAs: 'vm'
 	}).when('/api/v1/', {
 		templateUrl: '/api/v1/view.html',
 		controller: 'ApiV1Controller',
+		controllerAs: 'vm'
+	}).when('/persona/:id', {
+		templateUrl: '/modules/persona/view.html',
+		controller: 'PersonaController',
 		controllerAs: 'vm'
 	}).when('/explorador/', {
 		templateUrl: '/modules/grupos/view.html',
